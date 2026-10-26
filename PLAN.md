@@ -1,6 +1,7 @@
 # comtudia — Implementation Plan
 
-> Status: implemented. See [README.md](README.md) for usage and screenshots.
+> Status: implemented with Vala, GTK4, and libadwaita. See
+> [README.md](README.md) for usage and screenshots.
 > `comtudia` comes from the Spanish phrase “comienza tu día” — start your day.
 
 ## Identity
@@ -8,16 +9,18 @@
 | Item | Value |
 | --- | --- |
 | Display name / window title | `comtudia` |
-| Fyne app ID / package name | `com.comtudia.app` |
-| Go module | `com.comtudia.app` |
-| Binary | `bin/comtudia` |
+| GApplication / desktop ID | `com.comtudia.app` |
+| Language / toolkit | Vala + GTK4 + libadwaita |
+| Binary | `comtudia` |
 | Config path | `$XDG_CONFIG_HOME/comtudia/plan.json` |
 | Legacy config | `$XDG_CONFIG_HOME/eatime/plan.json` |
+| Desktop file | `com.comtudia.app.desktop` |
+| Icon name | `com.comtudia.app` |
 | Agent instructions | `AGENTS.md` |
 
 ## Goal
 
-A Linux desktop app (Go + Fyne) that tracks a recurring daily eating plan and
+A Linux-only native desktop app that tracks a recurring daily eating plan and
 counts down to the next eating time.
 
 The user configures:
@@ -29,7 +32,7 @@ The user configures:
 
 The app shows the current phase (fasting/eating), a live countdown, the
 relevant day's schedule, a 24-hour timeline, tray status, and desktop
-notifications.
+notifications. It also keeps the legacy `eatime` config migration.
 
 ## Schedule semantics
 
@@ -66,52 +69,77 @@ lookup scans yesterday/today/tomorrow to handle windows that cross midnight.
 
 ## Architecture
 
-```
+```text
 comtudia/
-├── main.go
-├── go.mod                 # module com.comtudia.app
+├── meson.build
 ├── Makefile
 ├── README.md
 ├── PLAN.md
 ├── AGENTS.md
-├── FyneApp.toml
-├── assets/
-│   ├── icon.png
-│   └── tray.png
-└── internal/
-    ├── plan/              # model, validation, schedule calculation (pure Go)
-    ├── store/             # atomic JSON persistence + legacy migration
-    ├── notify/            # phase-change notification logic
-    ├── format/            # countdown/time formatting
-    └── ui/                # dashboard, settings, ring, timeline, tray
+├── VALA_GTK4_PLAN.md
+├── LICENSE
+├── src/
+│   ├── main.vala
+│   ├── application.vala
+│   ├── window.vala
+│   ├── dashboard.vala
+│   ├── settings.vala
+│   ├── plan.vala
+│   ├── schedule.vala
+│   ├── store.vala
+│   ├── format.vala
+│   ├── notifier.vala
+│   ├── tray-item.vala
+│   ├── ring.vala
+│   ├── timeline.vala
+│   └── colors.vala
+├── data/
+│   ├── com.comtudia.app.desktop
+│   ├── com.comtudia.app.metainfo.xml
+│   ├── com.comtudia.app.svg
+│   ├── com.comtudia.app.gresource.xml
+│   └── style.css
+├── tests/
+│   ├── plan-test.vala
+│   ├── schedule-test.vala
+│   ├── store-test.vala
+│   ├── format-test.vala
+│   ├── notify-test.vala
+│   ├── settings-test.vala
+│   ├── timeline-test.vala
+│   └── tray-test.vala
+└── docs/
+    ├── screenshot.png
+    └── settings.png
 ```
 
-The source directory is currently `/home/del/source/eatime`; that folder name
-is independent of the app/module name.
+`plan`, `schedule`, `store`, `format`, and `notifier` contain no GTK code so
+they can be tested without a display. `dashboard`, `settings`, `ring`,
+`timeline`, `tray-item`, `window`, and `application` form the GTK layer.
 
 ## Persistence
 
-- Location: `os.UserConfigDir()/comtudia/plan.json`
-- Atomic writes: temp file in the same directory, then rename.
+- Location: `$XDG_CONFIG_HOME/comtudia/plan.json`
+- JSON via json-glib, preserving schema version 1.
+- Atomic writes via `Gio.File.replace_contents`.
 - File mode 0600, config directory 0700.
 - Missing file loads defaults.
-- Corrupt/invalid file falls back to defaults, shows a warning, and is not
-  deleted.
-- Versioned JSON schema.
+- Corrupt/invalid file is reported and is not deleted; the app uses defaults
+  and shows a warning. It never silently falls back to the legacy plan.
 - On load, if the current plan is missing and the legacy
-  `os.UserConfigDir()/eatime/plan.json` exists, the legacy plan is loaded and
+  `$XDG_CONFIG_HOME/eatime/plan.json` exists, the legacy plan is loaded and
   saved to the new path. The legacy file is left as a backup.
 
 ## UI
 
 ### Dashboard
 
-- Header with the app name and a "Plan" settings button.
+- Header with the app name and a "Plan" button.
 - Status pill: `FASTING` or `EATING NOW`.
-- Large progress ring with countdown in the centre.
+- Large Cairo progress ring with countdown in the centre.
 - Context line: next meal/window time or current meal number.
 - Two summary cards: next eating / eating ends, and current plan summary.
-- 24-hour timeline with meal blocks and a live "now" marker.
+- 24-hour Cairo timeline with meal blocks and a live "now" marker.
 - Schedule list for the relevant cycle day, highlighting current/next meal.
 - Warning banner when saved settings could not be loaded.
 
@@ -123,21 +151,25 @@ is independent of the app/module name.
 - Toggles: desktop notifications, keep running in tray when window closes.
 - Live preview of meal times and fasting breakdown.
 - Inline validation, reset, cancel, save.
-- "Send test notification" button.
+- "Send test" notification action.
 - Config file path shown.
+- Tray toggle is disabled when no StatusNotifier watcher is available.
 
 ### Tray and notifications
 
 - Tray icon with menu: status line, "Show comtudia", "Quit".
-- Tray click shows the window.
+- Tray click/activate shows the window.
 - Status label refreshes only when the displayed value changes.
 - Notifications fire on phase changes (eating ↔ fasting), not every contiguous
   meal slot.
 - Contiguous meals are merged into one eating phase, avoiding notification
   spam.
-- Startup primes the notifier so it does not fire immediately.
-- Notifications are best-effort via Fyne; Linux requires a notification daemon.
-- Tray availability depends on the desktop environment; GNOME may need the
+- Startup primes the notifier so it does not fire immediately; a plan change
+  re-primes it.
+- Notifications use `GApplication.send_notification` with `GNotification`.
+- The tray is implemented directly with `org.kde.StatusNotifierItem` and
+  `com.canonical.dbusmenu`.
+- Tray availability depends on a StatusNotifier watcher; GNOME needs the
   AppIndicator extension. The app remains usable without the tray.
 
 ## Testing
@@ -147,41 +179,46 @@ is independent of the app/module name.
 - Schedule state at exact boundaries.
 - Midnight-crossing windows.
 - DST transitions (America/New_York) without overlapping meals.
-- Store round-trip, missing/corrupt files, atomic writes, and legacy migration.
+- Store round-trip, missing/corrupt files, atomic writes, permissions, and
+  legacy migration.
 - Formatting of countdowns, durations, day labels, ranges.
 - Notification phase-change behavior, including contiguous meals and gaps.
 - Timeline segment clipping.
-- Tray menu/status behavior.
-- Fyne smoke tests using `fyne.io/fyne/v2/test`.
-- `gofmt`, `go vet ./...`, `go test ./...`, `go test -race ./...`, manual run
-  and screenshots.
+- Tray status text.
+- Manual: run under GNOME Wayland, verify the tray icon/menu with the
+  AppIndicator extension, close-to-tray and Quit, a real notification at a meal
+  boundary, the test-notification action, and screenshots.
+- `meson test -C build --print-errorlogs`, `make check`, and a manual run.
 
 ## Build
 
 System dependencies (Debian/Ubuntu):
 
 ```bash
-sudo apt install golang-go gcc pkg-config libgl1-mesa-dev xorg-dev \
-  libwayland-dev libxkbcommon-dev
+sudo apt install -y valac meson ninja-build \
+  libgtk-4-dev libadwaita-1-dev libjson-glib-dev \
+  libglib2.0-dev desktop-file-utils hicolor-icon-theme \
+  gnome-shell-extension-appindicator
 ```
 
 Commands:
 
 ```bash
-make run     # run the app
-make test    # go test ./...
-make vet     # go vet ./...
-make build   # build bin/comtudia
-make check   # fmt + vet + test
+make build     # meson setup + compile
+make run       # run ./build/comtudia
+make test      # meson test
+make check     # test + desktop/metainfo validation
+make install   # meson install
+make clean     # remove build directory
 ```
 
 ## Implementation order
 
-1. Module init with `com.comtudia.app` and Fyne v2.8.2.
-2. `internal/plan` + tests.
-3. `internal/format`, `internal/store`, `internal/notify` + tests.
-4. Dashboard and live countdown.
-5. Settings and persistence wiring.
-6. Timeline, icon, tray, notifications.
-7. README, AGENTS.md, Makefile, Fyne metadata.
-8. Full verification, config migration test, and manual run.
+1. Meson project and GResource scaffolding.
+2. `plan`, `schedule`, `format`, `store`, `notifier` + tests.
+3. GTK4/libadwaita dashboard, settings, ring, and timeline.
+4. StatusNotifierItem/DBusMenu tray service.
+5. `GNotification` notifications and test action.
+6. Desktop file, metainfo, icon, CSS, and install rules.
+7. README, PLAN, AGENTS, Makefile, and `.gitignore` updates.
+8. Full verification, screenshots, and removal of the Go/Fyne implementation.

@@ -1,8 +1,8 @@
 # comtudia — Vala/GTK4 Migration Plan
 
-> **Status:** proposed, not implemented.  
-> The current `main` branch still contains the Fyne implementation. This plan
-> supersedes it once the migration is completed and verified.  
+> **Status:** implemented.
+> The current `main` branch contains the Vala/GTK4/libadwaita implementation.
+> The previous Go/Fyne implementation is preserved under the tag `fyne-v0.1`.
 > **Date:** 2026-10-26
 
 ## Goal
@@ -101,18 +101,23 @@ comtudia/
 │   ├── tray-item.vala        # StatusNotifierItem
 │   ├── tray-menu.vala        # com.canonical.dbusmenu
 │   ├── ring.vala             # Gtk.DrawingArea + Cairo
-│   └── timeline.vala         # Gtk.DrawingArea + Cairo
+│   ├── timeline.vala         # Gtk.DrawingArea + Cairo
+│   └── colors.vala           # shared Cairo colours
 ├── data/
 │   ├── com.comtudia.app.desktop
 │   ├── com.comtudia.app.metainfo.xml
 │   ├── com.comtudia.app.svg
+│   ├── com.comtudia.app.gresource.xml
 │   └── style.css
 ├── tests/
 │   ├── plan-test.vala
 │   ├── schedule-test.vala
 │   ├── store-test.vala
 │   ├── format-test.vala
-│   └── notify-test.vala
+│   ├── notify-test.vala
+│   ├── settings-test.vala
+│   ├── timeline-test.vala
+│   └── tray-test.vala
 └── docs/
     ├── screenshot.png
     └── settings.png
@@ -242,9 +247,10 @@ gio = dependency('gio-2.0')
 - Makefile targets:
 
 ```bash
-make build     # meson setup + ninja
-make run       # build and run ./build/src/comtudia
+make build     # meson setup + compile
+make run       # build and run ./build/comtudia
 make test      # meson test
+make check     # tests + desktop/metainfo validation
 make install   # meson install
 make clean     # remove build directory
 ```

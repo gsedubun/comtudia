@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=comtudia
+Comment=Track your daily eating window
+Exec=comtudia
+Icon=com.comtudia.app
+Terminal=false
+Type=Application
+Categories=Utility;
+Keywords=fasting;eating;window;timer;health;
+StartupNotify=true
+X-GNOME-UsesNotifications=true

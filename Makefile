@@ -1,28 +1,38 @@
 APP := comtudia
-BIN := bin/$(APP)
+BUILD := build
+PREFIX ?= /usr/local
+BUILDTYPE ?= release
 
-.PHONY: run build test vet fmt tidy check clean
+.PHONY: all build run test check install clean distclean
 
-run:
-	go run .
+all: build
 
 build:
-	mkdir -p bin
-	go build -o $(BIN) .
+	@if [ ! -d $(BUILD) ]; then \
+		meson setup $(BUILD) --prefix=$(PREFIX) --buildtype=$(BUILDTYPE); \
+	else \
+		meson setup --reconfigure $(BUILD) --prefix=$(PREFIX) --buildtype=$(BUILDTYPE); \
+	fi
+	meson compile -C $(BUILD)
 
-test:
-	go test ./...
+run: build
+	./$(BUILD)/$(APP)
 
-vet:
-	go vet ./...
+test: build
+	meson test -C $(BUILD) --print-errorlogs
 
-fmt:
-	gofmt -w .
+check: test
+	desktop-file-validate data/com.comtudia.app.desktop
+	@if command -v appstreamcli >/dev/null 2>&1; then \
+		appstreamcli validate data/com.comtudia.app.metainfo.xml; \
+	else \
+		echo "appstreamcli not installed; skipping metainfo validation"; \
+	fi
 
-tidy:
-	go mod tidy
-
-check: fmt vet test
+install: build
+	meson install -C $(BUILD)
 
 clean:
-	rm -rf bin
+	rm -rf $(BUILD)
+
+distclean: clean

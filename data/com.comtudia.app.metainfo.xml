@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>com.comtudia.app</id>
+  <name>comtudia</name>
+  <summary>Track your daily eating window</summary>
+  <description>
+    <p>
+      comtudia tracks a recurring daily eating window. Set your fasting and
+      eating split, split the eating time into meals, and see how long until
+      the next time you eat.
+    </p>
+    <p>
+      The app shows a live countdown, a 24-hour timeline, and the current
+      day's schedule. It can also send desktop notifications and keep a
+      StatusNotifier tray icon while the window is hidden.
+    </p>
+  </description>
+  <launchable type="desktop-id">com.comtudia.app.desktop</launchable>
+  <url type="homepage">https://github.com/gsedubun/comtudia</url>
+  <url type="bugtracker">https://github.com/gsedubun/comtudia/issues</url>
+  <provides>
+    <binary>comtudia</binary>
+  </provides>
+  <categories>
+    <category>Utility</category>
+  </categories>
+  <keywords>
+    <keyword>fasting</keyword>
+    <keyword>eating</keyword>
+    <keyword>window</keyword>
+    <keyword>health</keyword>
+  </keywords>
+  <icon type="stock">com.comtudia.app</icon>
+  <content_rating type="oars-1.1"/>
+  <releases>
+    <release version="0.1.0" date="2026-10-26">
+      <description>
+        <p>Initial Vala/GTK4 release.</p>
+      </description>
+    </release>
+  </releases>
+  <developer id="com.comtudia">
+    <name>comtudia contributors</name>
+  </developer>
+  <metadata_license>MIT</metadata_license>
+  <project_license>MIT</project_license>
+</component>
