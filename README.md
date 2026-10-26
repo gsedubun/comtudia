@@ -5,7 +5,7 @@ name comes from the Spanish phrase **“comienza tu día”** — start your day
 
 Set your fasting/eating split, split the eating window into meals, and see how
 long until the next time you eat. Built with **Vala**, **GTK4**, and
-**libadwaita**.
+**libadwaita** — no Node, WebView, or Go runtime.
 
 ![comtudia dashboard](docs/screenshot.png)
 
@@ -69,8 +69,11 @@ can shift slightly relative to the wall clock.
 ## Requirements
 
 - A Linux desktop with GTK4 and libadwaita
-- Vala, Meson, and Ninja
+- GTK4 4.18 or newer
+- libadwaita 1.6 or newer
+- GLib 2.80 or newer
 - json-glib
+- Vala, Meson, and Ninja
 - For tray icons on GNOME: the AppIndicator extension
 
 On Debian/Ubuntu:
@@ -83,6 +86,12 @@ sudo apt install -y valac meson ninja-build \
   gnome-shell-extension-appindicator
 ```
 
+Check the installed library versions:
+
+```bash
+pkg-config --modversion gtk4 libadwaita-1 json-glib-1.0
+```
+
 Enable the GNOME StatusNotifier/AppIndicator extension:
 
 ```bash
@@ -90,7 +99,7 @@ gnome-extensions enable appindicatorsupport@rgcjonas.gmail.com
 ```
 
 A logout/login may be required before GNOME displays tray icons. The extension
-is a desktop-environment requirement; comtudia itself detects whether a
+is a desktop-environment requirement; comtudia detects whether a
 StatusNotifier watcher is available and remains usable without one.
 
 ## Build and run
@@ -104,11 +113,36 @@ make install   # meson install
 make clean     # remove the build directory
 ```
 
+To build a debug binary:
+
+```bash
+make build BUILDTYPE=debug
+```
+
 To install into a user prefix:
 
 ```bash
 make install PREFIX=$HOME/.local
 ```
+
+`make install` installs:
+
+```text
+$PREFIX/bin/comtudia
+$PREFIX/share/applications/com.comtudia.app.desktop
+$PREFIX/share/metainfo/com.comtudia.app.metainfo.xml
+$PREFIX/share/icons/hicolor/scalable/apps/com.comtudia.app.svg
+```
+
+After a manual user-prefix install, refresh the desktop database and icon cache
+if your desktop does not pick the app up immediately:
+
+```bash
+update-desktop-database ~/.local/share/applications
+gtk-update-icon-cache ~/.local/share/icons/hicolor 2>/dev/null || true
+```
+
+Then launch `comtudia` from your application menu or from a terminal.
 
 Direct Meson commands also work:
 
@@ -132,8 +166,24 @@ shows the exact path. A fresh install with no saved plan uses the 18:6 default:
 3 meals of 2h starting at 12:00, with notifications enabled and tray-on-close
 disabled.
 
-Writes are atomic (temp file in the same directory, then rename), the plan file
-is mode `0600`, and the config directory is mode `0700`.
+A default plan looks like this:
+
+```json
+{
+  "version": 1,
+  "eating_minutes": 360,
+  "meals": 3,
+  "gap_minutes": 0,
+  "window_start_minutes": 720,
+  "notifications": true,
+  "run_in_tray": false
+}
+```
+
+`window_start_minutes` is minutes after local midnight, so `720` is 12:00.
+
+Writes are atomic via `Gio.File.replace_contents`, the plan file is mode
+`0600`, and the config directory is mode `0700`.
 
 ### Migrating from eatime
 
@@ -143,6 +193,12 @@ The app was previously named `eatime`. On first run, if the new
 the new location. The old file is left in place as a backup. A corrupt current
 plan is reported and never silently replaced by the legacy plan.
 
+### Resetting the plan
+
+Use the **Reset** button on the settings screen to restore the default 18:6
+plan, or move/delete the plan file while the app is not running. The app does
+not delete a corrupt plan automatically.
+
 ## Notifications and tray
 
 - Notifications fire when the eating/fasting phase changes, not at every
@@ -151,21 +207,71 @@ plan is reported and never silently replaced by the legacy plan.
   libnotify dependency is needed.
 - The app must be running to deliver notifications. Notifications are best
   effort and depend on the desktop’s notification service.
+- The settings screen has a **Send test** action for notifications.
 - Tray support implements `org.kde.StatusNotifierItem` and
   `com.canonical.dbusmenu` directly over GIO D-Bus. No GTK3, Ayatana, or
   libappindicator dependency is needed.
+- The tray menu provides a status line, **Show comtudia**, and **Quit**.
+  Activating the icon shows the window.
 - GNOME requires the AppIndicator extension for StatusNotifier icons. If no
   `org.kde.StatusNotifierWatcher` is present, comtudia skips the tray and
   closing the window quits.
 - “Keep running in tray when closed” only has an effect when a StatusNotifier
-  watcher is available. The tray menu provides a status line, “Show comtudia”,
-  and “Quit”.
-- The settings screen has a “Send test” action for notifications.
+  watcher is available.
 - `make install` installs the desktop file and icon under the hicolor theme so
   notifications and tray icons have the correct identity. Development runs also
   copy the icon into the user’s hicolor theme as a fallback.
 
-## Project layout
+## Troubleshooting
+
+### The tray icon is missing
+
+1. Install and enable the GNOME AppIndicator extension.
+2. Log out and back in.
+3. Check that a watcher is running:
+
+   ```bash
+   gdbus call --session \
+     --dest org.freedesktop.DBus \
+     --object-path /org/freedesktop/DBus \
+     --method org.freedesktop.DBus.NameHasOwner \
+     org.kde.StatusNotifierWatcher
+   ```
+
+   The result should be `(true,)`. If it is `(false,)`, the desktop is not
+   providing a StatusNotifier host; the app stays usable without the tray and
+   closing the window quits.
+
+### Notifications do not appear
+
+- Make sure a notification daemon is running.
+- Try the **Send test** action in settings.
+- Install the app with `make install` so the desktop file and icon have the
+  correct app identity.
+- Check your desktop’s notification settings and Do Not Disturb state.
+
+### The build cannot find GTK4 or libadwaita
+
+Install the development packages listed above and verify them:
+
+```bash
+pkg-config --modversion gtk4 libadwaita-1 json-glib-1.0
+```
+
+### The app shows a warning about the saved plan
+
+The current plan could not be read or is invalid. The app uses defaults and
+shows the error without deleting the file. Move the file aside, or fix it using
+the settings screen and save again.
+
+### A second launch does not open a new window
+
+This is expected: comtudia uses a single GApplication instance. Launching it
+again activates the existing window, even if it is hidden in the tray.
+
+## Development
+
+### Project layout
 
 ```text
 meson.build              Meson project and install rules
@@ -189,24 +295,53 @@ data/
   com.comtudia.app.desktop
   com.comtudia.app.metainfo.xml
   com.comtudia.app.svg
-  style.css
   com.comtudia.app.gresource.xml
+  style.css
 tests/                   GLib.Test suites
 docs/                    screenshots
 AGENTS.md                instructions for coding agents
+VALA_GTK4_PLAN.md        Vala/GTK4 migration brief
+LICENSE                  BSD 2-Clause license
 ```
 
-## Tests
+### Tests
 
 ```bash
 meson test -C build --print-errorlogs
+make check
 ```
 
 The test suite covers validation, meal splitting, gaps, midnight-crossing
 windows, DST behavior, persistence and config migration, notification
-transitions, formatting, timeline segments, and tray status text. The tray
-service itself is verified manually with a StatusNotifier watcher (and can be
-inspected with `gdbus introspect`).
+transitions, formatting, timeline segments, settings preview text, and tray
+status text.
+
+The tray service itself can be inspected manually with `gdbus` while the app is
+running and a StatusNotifier watcher is available:
+
+```bash
+# The bus name is usually org.kde.StatusNotifierItem-<pid>-1
+gdbus introspect --session \
+  --dest org.kde.StatusNotifierItem-<pid>-1 \
+  --object-path /StatusNotifierItem
+
+gdbus call --session \
+  --dest org.kde.StatusNotifierItem-<pid>-1 \
+  --object-path /MenuBar \
+  --method com.canonical.dbusmenu.GetLayout 0 0 "[]"
+```
+
+### Screenshots
+
+- Dashboard: `docs/screenshot.png`
+- Settings: `docs/settings.png`
+
+Regenerate them after UI changes. When generating screenshots, use a temporary
+`XDG_CONFIG_HOME` so the real plan is not modified.
+
+## License
+
+comtudia is released under the BSD 2-Clause license. See [LICENSE](LICENSE).
 
 The previous Go/Fyne implementation is preserved in git under the tag
 `fyne-v0.1`.

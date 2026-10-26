@@ -42,6 +42,6 @@
   <developer id="com.comtudia">
     <name>comtudia contributors</name>
   </developer>
-  <metadata_license>MIT</metadata_license>
-  <project_license>MIT</project_license>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>BSD-2-Clause</project_license>
 </component>
