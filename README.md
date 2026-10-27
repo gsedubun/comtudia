@@ -1,11 +1,11 @@
 # comtudia
 
-A small Linux desktop app for tracking a recurring eating window. The name
-comes from the Spanish phrase **“comienza tu día”** — start your day.
+A small app for tracking a recurring eating window. The name comes from the
+Spanish phrase **“comienza tu día”** — start your day.
 
 Set your fasting/eating split, split the eating window into meals, and see how
-long until the next time you eat. Built with Go and
-[Fyne](https://fyne.io/).
+long until the next time you eat. Runs on the Linux desktop (Go and
+[Fyne](https://fyne.io/)), on Android, and on Wear OS.
 
 ![comtudia dashboard](docs/screenshot.png)
 
@@ -181,4 +181,38 @@ go vet ./...
 
 The tests cover validation, meal splitting, gaps, midnight-crossing windows,
 DST behavior, persistence and config migration, notification transitions,
-formatting, and timeline segments.
+formatting, and timeline segments. The Android and Wear OS code shares the same
+logic, covered by Kotlin unit tests and the Go/Kotlin golden vectors
+(`make android-test`).
+
+## Changelog
+
+### 2026-10-27
+
+- **Added** the Wear OS companion (`android/wear/`) for Galaxy Watch 4/5/6/7
+  and Watch FE. The phone pushes the plan over the Wearable Data Layer, and the
+  watch shows the phase, a drift-free countdown and the next meal.
+- **Changed** the Android sources into three modules: `android/core` (plan,
+  schedule, formatting and notification logic shared by phone and watch),
+  `android/app` (phone) and `android/wear` (watch). The golden vectors and the
+  docs moved with them.
+- **Removed** the Xiaomi Smart Band 9 Pro app (`band/`, the `.rpk` build and
+  deploy scripts, and `docs/band.md`). It installed and appeared in the band's
+  app list, but launching it rebooted the band on global firmware, so it was
+  unsupported and is no longer maintained. If you installed it, uninstall it
+  from Mi Fitness's third-party app page. Phone notifications are unaffected:
+  anything that mirrors Android notifications still shows the phase and the
+  countdown.
+- **Fixed** the Go golden-vector test path after the Android module move; it
+  pointed at the old `android/app` resources and only passed because of the Go
+  test cache.
+- **Docs** updated across `README.md`, `PLAN.md`, `AGENTS.md`,
+  `docs/android.md` and `docs/wear.md`, including new Android and watch
+  screenshots.
+
+### Earlier
+
+- Android app (`android/`): dashboard, plan editor, notifications, exact
+  alarms, and `plan.json` import/export.
+- Desktop: Fyne UI, system tray, and migration from the old `eatime` config.
+
