@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<gresources>
-  <gresource prefix="/com/comtudia/app">
-    <file>style.css</file>
-    <file>com.comtudia.app.svg</file>
-  </gresource>
-</gresources>
