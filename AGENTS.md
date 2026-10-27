@@ -177,6 +177,7 @@ remains testable without a display.
 - Dashboard: `docs/screenshot.png`
 - Settings: `docs/settings.png`
 - Android: `docs/android-dashboard.png`, `docs/android-settings.png`
+- Wear OS: `docs/wear-dashboard.png` (450x450, from the watch)
 - Band: `docs/band-dashboard.png` (336x480, from the emulator or the device)
 - Regenerate after UI/name changes.
 - When generating screenshots, use a temporary `XDG_CONFIG_HOME` so the user's

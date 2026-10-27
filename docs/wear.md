@@ -8,6 +8,8 @@ source of truth.
 Unlike the Xiaomi band, this is a real Android app: `adb install`, no firmware
 hacks, no crash risk.
 
+![comtudia on a Galaxy Watch5](wear-dashboard.png)
+
 ## How sync works
 
 Both APKs use the same application ID, `com.comtudia.app`, which is required for
@@ -60,8 +62,22 @@ adb -s <watch-ip>:<debug-port> install -r android/wear/build/outputs/apk/debug/w
 ```
 
 The wireless port changes when debugging is toggled; re-check the watch screen.
+The computer and the watch must be on the same subnet: if `adb connect` reports
+"No route to host", they are on different networks (this happened during the
+reference install, where the laptop was wired to `192.168.0.x` and the watch was
+on `192.168.1.x`). Move the watch to the computer's network, or the computer to
+the watch's, then retry.
 
 ### Debug over Bluetooth (through the phone)
+
+This works on watches that expose the Wear OS ADB hub, but **not on Samsung
+watches managed by Galaxy Wearable**: the hub is served by the Wear OS phone app
+(`com.google.android.wearable.app`), which is not installed when Galaxy Wearable
+is the companion. On the S21 FE, `adb forward tcp:4444 localabstract:/adb-hub`
+succeeds but the watch never answers (`offline`). Use Wireless debugging
+instead.
+
+If your phone does have the Wear OS app:
 
 1. Watch: **Developer options → Debug over Bluetooth** → on.
 2. The phone is already connected over USB:
@@ -82,10 +98,26 @@ adb -s 127.0.0.1:4444 install -r android/wear/build/outputs/apk/debug/wear-debug
    not completed — open the phone app once (it pushes on launch), then tap
    **Sync phone** on the watch.
 
+## Verified on hardware
+
+2026-10-27, Samsung Galaxy Watch5 (`SM-R910`, Wear OS 6 / Android 16, API 36),
+paired to the S21 FE:
+
+- `adb pair` and `adb connect` over Wireless debugging succeeded; mDNS
+  advertised both `_adb-tls-pairing` and `_adb-tls-connect`.
+- `adb install -r wear-debug.apk` returned `Success`; the watch reports
+  `com.comtudia.app` version 0.1.0.
+- Opening the app pulled the phone's plan through the Data Layer into
+  `shared_prefs/comtudia_watch.xml`: 18:6, 3 meals, 30-minute gaps, start
+  12:00 (the phone's real plan, not the default).
+- The dashboard showed `Eating · 01:24:30 · until 16:30 · Next meal 17:00` at
+  15:05, matching meals 14:30-16:30 and 17:00-19:00.
+
 ## Verification
 
 ```bash
 adb -s <watch> shell dumpsys package com.comtudia.app | grep versionName
+adb -s <watch> shell run-as com.comtudia.app cat shared_prefs/comtudia_watch.xml
 adb -s <watch> logcat -s WearSync WearableDataLayerService
 ```
 

@@ -149,6 +149,8 @@ caveats of the unsupported band sideload path.
 
 ![comtudia on Android](docs/android-dashboard.png)
 
+![comtudia on Wear OS](docs/wear-dashboard.png)
+
 ```bash
 tools/android-env.sh                  # JDK 17 + Android SDK + Gradle, no sudo
 make android-build                    # debug phone APK
