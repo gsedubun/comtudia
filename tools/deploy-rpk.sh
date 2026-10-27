@@ -293,12 +293,54 @@ tap_text() {
   "${ADB[@]}" shell input tap $coords
 }
 
+field_text() {
+  # Prints the text of the focused EditText, or nothing.
+  dump_ui
+  python3 - "$TMP_DIR/ui.xml" <<'PY'
+import re
+import sys
+
+try:
+    xml = open(sys.argv[1], encoding="utf-8", errors="replace").read()
+except OSError:
+    sys.exit(0)
+m = re.search(r'class="android\.widget\.EditText"[^>]*?text="([^"]*)"', xml)
+if m is None:
+    m = re.search(r'text="([^"]*)"[^>]*?class="android\.widget\.EditText"', xml)
+print(m.group(1) if m else "")
+PY
+}
+
+clear_field() {
+  # Move the cursor to the end, then delete enough characters for any package.
+  "${ADB[@]}" shell input keyevent 123 >/dev/null 2>&1 || true
+  local dels=()
+  for _ in $(seq 1 64); do dels+=(67); done
+  "${ADB[@]}" shell input keyevent "${dels[@]}" >/dev/null 2>&1 || true
+}
+
+type_package_segments() {
+  # Insert dots explicitly. No trailing delete: some keyboards do not add an
+  # auto-space after a dot, and deleting then removes the dot itself.
+  local parts=() part first=1
+  IFS='.' read -r -a parts <<< "$PKG"
+  for part in "${parts[@]}"; do
+    if [ "$first" -eq 0 ]; then
+      "${ADB[@]}" shell input keyevent 56   # dot
+      sleep 0.25
+    fi
+    "${ADB[@]}" shell input text "$part"
+    sleep 0.2
+    first=0
+  done
+}
+
 enter_package() {
   info "Entering package name"
   tap_text "click to input package name" || fail "package-name button not found on the debug page"
   sleep 2
 
-  local coords
+  local coords got
   dump_ui
   coords="$(find_center class "android.widget.EditText")"
   if [ -n "$coords" ]; then
@@ -307,17 +349,22 @@ enter_package() {
   fi
   sleep 1
 
-  local first rest
-  first="${PKG%%.*}"
-  rest="${PKG#*.}"
-  "${ADB[@]}" shell input text "$first"
-  sleep 0.2
-  "${ADB[@]}" shell input keyevent 56   # dot
-  sleep 0.3
-  "${ADB[@]}" shell input keyevent 67   # remove keyboard auto-space after dot
-  sleep 0.1
-  "${ADB[@]}" shell input text "$rest"
-  sleep 0.5
+  clear_field
+  "${ADB[@]}" shell input text "$PKG"
+  sleep 0.6
+  got="$(field_text)"
+
+  if [ "$got" != "$PKG" ]; then
+    warn "package field shows '$got'; retyping with explicit dots"
+    clear_field
+    type_package_segments
+    sleep 0.4
+    got="$(field_text)"
+  fi
+
+  if [ "$got" != "$PKG" ]; then
+    fail "package field shows '$got' instead of '$PKG'. Clear the field and type it manually, then rerun with --package '$PKG'."
+  fi
 
   tap_text "OK" || fail "OK button not found after entering the package name"
   sleep 2

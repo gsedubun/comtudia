@@ -136,7 +136,9 @@ as the desktop app, so a plan can be moved between them.
   dashboard, settings, notifications and exact-alarm scheduling. The phone app
   also feeds the band: Mi Fitness mirrors its ongoing countdown card.
 - `band/` — a standalone Vela JS Quick App for the band, sideloaded with
-  `tools/deploy-rpk.sh`.
+  `tools/deploy-rpk.sh`. On the reference global Band 9 Pro it installs and is
+  listed, but launching it reboots the band, so the phone notification path is
+  the supported experience.
 
 See [docs/android.md](docs/android.md) and [docs/band.md](docs/band.md) for
 building, installing, permissions, and the caveats of the unsupported band

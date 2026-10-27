@@ -16,10 +16,21 @@ labels its cycle day Today/Tomorrow/Yesterday so a window that crosses midnight
 stays coherent.
 
 > **Status:** the schedule math is tested with Node, and the RPK builds with no
-> Vela compiler warnings. The app has **not** been run on a physical band or the
-> Vela emulator, and the deploy script has **not** been executed against a
-> phone. Treat the UI, storage calls, and install flow as unverified until
-> tested on hardware. See [What is verified](#what-is-verified).
+> Vela compiler warnings. The deploy path has been executed end to end on a
+> Samsung Galaxy S21 FE (Android 16) with Mi Fitness 3.59.2i: the hidden debug
+> page opened, the RPK transferred, and **the app appeared in the band's app
+> list**. Launching it on the test unit (global Smart Band 9 Pro) **crashed and
+> rebooted the band**, so it was uninstalled again. Do not expect the RPK to run
+> on global firmware; the phone notification path is the supported experience.
+> See [What is verified](#what-is-verified).
+
+On the test unit the install/launch sequence was:
+
+1. `tools/deploy-rpk.sh` pushed the RPK and drove the debug page.
+2. The band showed a `comtudia` entry in its app list.
+3. Tapping the entry rebooted the band (the reported global-firmware failure).
+4. `tools/deploy-rpk.sh --uninstall-only` removed it; Mi Fitness reported
+   `uninstallApp success`.
 
 ## Why there is no app store
 
@@ -231,7 +242,9 @@ the on-band plan stored under the app's private storage.
 ### Global/international firmware caveat
 
 - Community reports describe crashes or reboots on global firmware after
-  installing custom RPKs. There is no official recovery path from Xiaomi.
+  installing custom RPKs. This is **confirmed on the reference unit**: the app
+  installed and was listed, then rebooted the band on launch. There is no
+  official recovery path from Xiaomi.
 - A Mi Fitness or band firmware update can remove or rename the hidden debug
   page and the internal classes the launcher depends on.
 - Do not install this on a band whose health data you cannot afford to lose.
@@ -289,15 +302,28 @@ Verified locally:
 - `tools/band-build.sh` and `tools/deploy-rpk.sh` pass `bash -n`; the
   no-Node/no-adb error paths were exercised.
 
+Verified on hardware (2026-10-27):
+
+- Phone: Samsung Galaxy S21 FE, Android 16, Mi Fitness `com.xiaomi.wearable`
+  3.59.2i, band paired.
+- `tools/deploy-rpk.sh` compiled the launcher, opened
+  `ThirdAppSupport`, entered `com.comtudia.app`, pushed the RPK, and Mi Fitness
+  reported `发送文件成功` (file sent).
+- The band listed a `comtudia` app in its app list.
+- Launching that app **crashed/rebooted the band**. Uninstalling with
+  `--uninstall-only --package com.comtudia.app` returned `uninstallApp success`.
+- Device artifacts (`/sdcard/Xiaomi-band/*.rpk`, `/data/local/tmp/launch.dex`)
+  were removed afterwards, and the band no longer lists the app.
+
 Not verified:
 
-- Rendering, touch targets, and text fitting on the 336 x 480 capsule.
-- `@system.storage` behaviour on the band (the API usage follows the docs, but
-  it has not run on hardware).
-- The hidden debug page launch and `uiautomator` flow on the S21 FE. No phone
-  was connected while writing this.
-- Any interaction with global firmware.
+- Rendering on a band, because the app cannot be launched on global firmware.
+- `@system.storage` behaviour on the band.
 - Battery use.
+
+The deploy script now types the package name and verifies the field text before
+tapping OK: the earlier fixed sequence (`dot`, then `delete` to remove a
+keyboard auto-space) dropped the first dot on Samsung's keyboard.
 
 ## Screenshot
 
