@@ -34,3 +34,23 @@ go.work.sum
 
 # Local build output
 bin/
+
+# Android
+android/.gradle/
+android/.kotlin/
+android/build/
+android/app/build/
+android/local.properties
+android/env.sh
+android/app/release/
+*.apk
+*.aab
+*.jks
+*.keystore
+
+# Vela / band build output
+band/**/dist/
+band/**/node_modules/
+band/**/sign/
+.idea/
+

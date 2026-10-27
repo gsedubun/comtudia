@@ -1,0 +1,271 @@
+<template>
+  <div class="page">
+    <div class="topbar">
+      <text class="back" onclick="goBack">&lt;</text>
+      <text class="title">Plan</text>
+      <text class="spacer"> </text>
+    </div>
+
+    <text class="summary">{{summary}}</text>
+
+    <div class="row">
+      <text class="label">Eating</text>
+      <div class="stepper">
+        <div class="step" onclick="eatingDown"><text class="step-text">-</text></div>
+        <text class="value">{{eatingLabel}}</text>
+        <div class="step" onclick="eatingUp"><text class="step-text">+</text></div>
+      </div>
+    </div>
+
+    <div class="row">
+      <text class="label">Meals</text>
+      <div class="stepper">
+        <div class="step" onclick="mealsDown"><text class="step-text">-</text></div>
+        <text class="value">{{mealsLabel}}</text>
+        <div class="step" onclick="mealsUp"><text class="step-text">+</text></div>
+      </div>
+    </div>
+
+    <div class="row">
+      <text class="label">Gap</text>
+      <div class="stepper">
+        <div class="step" onclick="gapDown"><text class="step-text">-</text></div>
+        <text class="value">{{gapLabel}}</text>
+        <div class="step" onclick="gapUp"><text class="step-text">+</text></div>
+      </div>
+    </div>
+
+    <div class="row">
+      <text class="label">Starts</text>
+      <div class="stepper">
+        <div class="step" onclick="startDown"><text class="step-text">-</text></div>
+        <text class="value">{{startLabel}}</text>
+        <div class="step" onclick="startUp"><text class="step-text">+</text></div>
+      </div>
+    </div>
+
+    <text class="error">{{error}}</text>
+
+    <div class="{{saveClass}}" onclick="savePlan">
+      <text class="save-text" style="color: {{saveTextColor}};">Save plan</text>
+    </div>
+  </div>
+</template>
+
+<script>
+import router from '@system.router'
+import store from '../../common/store'
+import plan from '../../common/plan'
+import format from '../../common/format'
+
+export default {
+  private: {
+    draft: null,
+    summary: '6h · 3 meals',
+    eatingLabel: '6h',
+    mealsLabel: '3',
+    gapLabel: '0m',
+    startLabel: '12:00',
+    error: '',
+    saveClass: 'save',
+    saveTextColor: '#000000'
+  },
+
+  onInit() {
+    this.draft = plan.defaultPlan()
+    this.saving = false
+    this.refreshDraft()
+  },
+
+  onShow() {
+    var self = this
+    store.load(function (p) {
+      self.draft = p
+      self.refreshDraft()
+    })
+  },
+
+  refreshDraft() {
+    var p = this.draft
+    if (!p) return
+    this.summary = format.compactMinutes(p.eating_minutes) + ' · ' + p.meals + ' meals'
+    this.eatingLabel = format.compactMinutes(p.eating_minutes)
+    this.mealsLabel = '' + p.meals
+    this.gapLabel = p.meals === 1 ? 'off' : format.compactMinutes(p.gap_minutes)
+    this.startLabel = format.clockMinutes(p.window_start_minutes)
+
+    var err = plan.validate(p)
+    this.error = err || ''
+    this.saveClass = err ? 'save save-off' : 'save'
+    this.saveTextColor = err ? '#8a8a8a' : '#000000'
+  },
+
+  apply(field, delta) {
+    if (!this.draft) return
+    var p = plan.copyPlan(this.draft)
+
+    if (field === 'eating') {
+      p.eating_minutes = Math.max(60, Math.min(1380, p.eating_minutes + delta))
+    } else if (field === 'meals') {
+      p.meals = Math.max(1, Math.min(plan.MAX_MEALS, p.meals + delta))
+      if (p.meals === 1) p.gap_minutes = 0
+    } else if (field === 'gap') {
+      if (p.meals > 1) {
+        var maxGap = Math.floor((1380 - p.eating_minutes) / (p.meals - 1))
+        p.gap_minutes = Math.max(0, Math.min(maxGap, p.gap_minutes + delta))
+      }
+    } else if (field === 'start') {
+      p.window_start_minutes = (p.window_start_minutes + delta + 1440) % 1440
+    }
+
+    this.draft = p
+    this.refreshDraft()
+  },
+
+  eatingDown() { this.apply('eating', -30) },
+  eatingUp() { this.apply('eating', 30) },
+  mealsDown() { this.apply('meals', -1) },
+  mealsUp() { this.apply('meals', 1) },
+  gapDown() { this.apply('gap', -15) },
+  gapUp() { this.apply('gap', 15) },
+  startDown() { this.apply('start', -15) },
+  startUp() { this.apply('start', 15) },
+
+  savePlan() {
+    if (this.error || this.saving) return
+    this.saving = true
+    var self = this
+    store.save(this.draft, function () {
+      self.saving = false
+      router.back()
+    }, function () {
+      self.saving = false
+      self.error = 'Could not save'
+      self.saveClass = 'save save-off'
+      self.saveTextColor = '#8a8a8a'
+    })
+  },
+
+  goBack() {
+    router.back()
+  }
+}
+</script>
+
+<style>
+  .page {
+    flex-direction: column;
+    background-color: #000000;
+    padding: 6px 10px;
+  }
+
+  .topbar {
+    width: 100%;
+    height: 28px;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .back {
+    width: 24px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #ffffff;
+  }
+
+  .title {
+    flex: 1;
+    font-size: 18px;
+    font-weight: bold;
+    color: #ffffff;
+    text-align: center;
+  }
+
+  .spacer {
+    width: 24px;
+    font-size: 12px;
+    color: #000000;
+  }
+
+  .summary {
+    width: 100%;
+    font-size: 15px;
+    color: #c8c8c8;
+    margin-top: 1px;
+    margin-bottom: 2px;
+  }
+
+  .row {
+    width: 100%;
+    height: 28px;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 2px;
+  }
+
+  .label {
+    width: 50px;
+    font-size: 15px;
+    color: #c8c8c8;
+  }
+
+  .stepper {
+    flex: 1;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  .step {
+    width: 22px;
+    height: 22px;
+    border-radius: 11px;
+    background-color: #1e1e1e;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .step-text {
+    font-size: 17px;
+    font-weight: bold;
+    color: #ffffff;
+    text-align: center;
+  }
+
+  .value {
+    width: 52px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #ffffff;
+    text-align: center;
+  }
+
+  .error {
+    width: 100%;
+    height: 14px;
+    font-size: 12px;
+    color: #ff8a8a;
+    text-align: center;
+    margin-top: 1px;
+  }
+
+  .save {
+    width: 100%;
+    height: 30px;
+    border-radius: 16px;
+    background-color: #3dd597;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3px;
+  }
+
+  .save-off {
+    background-color: #1a1a1a;
+  }
+
+  .save-text {
+    font-size: 17px;
+    font-weight: bold;
+    text-align: center;
+  }
+</style>

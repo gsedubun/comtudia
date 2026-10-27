@@ -126,6 +126,31 @@ the new location. The old file is left in place as a backup.
 - "Keep running in tray when closed" only has an effect when a tray is
   available.
 
+## Android and smart band
+
+There is an Android port in `android/` and an optional Xiaomi Smart Band 9 Pro
+app in `band/`. Both use the same plan model and the same `plan.json` document
+as the desktop app, so a plan can be moved between them.
+
+- `android/` — Kotlin + Compose app (`com.comtudia.app`) with the same
+  dashboard, settings, notifications and exact-alarm scheduling. The phone app
+  also feeds the band: Mi Fitness mirrors its ongoing countdown card.
+- `band/` — a standalone Vela JS Quick App for the band, sideloaded with
+  `tools/deploy-rpk.sh`.
+
+See [docs/android.md](docs/android.md) and [docs/band.md](docs/band.md) for
+building, installing, permissions, and the caveats of the unsupported band
+sideload path.
+
+![comtudia on Android](docs/android-dashboard.png)
+
+```bash
+tools/android-env.sh                  # JDK 17 + Android SDK + Gradle, no sudo
+make android-build                    # debug APK
+make android-test                     # JVM tests incl. Go parity vectors
+tools/band-build.sh                   # RPK (needs Node or AIoT-IDE)
+```
+
 ## Project layout
 
 ```text
@@ -135,6 +160,10 @@ internal/store/          atomic JSON persistence and legacy migration
 internal/notify/         phase-change notification logic
 internal/format/         countdown and time formatting
 internal/ui/             Fyne dashboard, settings, ring, timeline, tray
+android/                 Android app (Kotlin, Compose)
+band/                    Vela Quick App for the Xiaomi Smart Band 9 Pro
+tools/                   Android toolchain, RPK build and deploy scripts
+docs/                    screenshots and platform guides
 AGENTS.md                instructions for coding agents
 ```
 

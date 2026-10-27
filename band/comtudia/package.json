@@ -1,0 +1,14 @@
+{
+  "name": "comtudia-band",
+  "version": "1.0.0",
+  "private": true,
+  "description": "comtudia Vela Quick App for Xiaomi Smart Band 9 Pro",
+  "scripts": {
+    "build": "aiot build",
+    "start": "aiot start --watch"
+  },
+  "devDependencies": {
+    "@aiot-toolkit/jsc": "^1.0.3",
+    "aiot-toolkit": "^2.0.5"
+  }
+}

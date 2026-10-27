@@ -3,6 +3,17 @@
 > Status: implemented. See [README.md](README.md) for usage and screenshots.
 > `comtudia` comes from the Spanish phrase “comienza tu día” — start your day.
 
+## Platforms
+
+| Platform | Location | Notes |
+| --- | --- | --- |
+| Linux desktop | Go + Fyne, this document | `make run` |
+| Android | `android/` (Kotlin + Compose) | Ports `internal/plan`; parity-tested by `internal/plan/golden_test.go` |
+| Xiaomi Smart Band 9 Pro | `band/` (Vela JS Quick App) | Sideloaded; see `docs/band.md` |
+
+All platforms share the same 24-hour cycle and the same `plan.json` schema.
+See [docs/android.md](docs/android.md) and [docs/band.md](docs/band.md).
+
 ## Identity
 
 | Item | Value |

@@ -1,0 +1,19 @@
+<script>
+export default {
+  onCreate() {
+    console.log('comtudia created')
+  },
+  onShow() {
+    console.log('comtudia foreground')
+  },
+  onHide() {
+    console.log('comtudia background')
+  },
+  onDestroy() {
+    console.log('comtudia destroyed')
+  },
+  onError(e) {
+    console.log('comtudia error: ' + (e && e.message ? e.message : e))
+  }
+}
+</script>

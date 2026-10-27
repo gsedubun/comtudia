@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">comtudia</string>
+
+    <string name="notification_channel_ongoing">Current phase</string>
+    <string name="notification_channel_ongoing_description">Shows the current eating or fasting phase and its countdown</string>
+    <string name="notification_channel_alerts">Eating and fasting alerts</string>
+    <string name="notification_channel_alerts_description">Alerts when eating or fasting starts</string>
+    <string name="notification_phase_fasting">Fasting</string>
+    <string name="notification_phase_eating">Eating</string>
+    <string name="notification_until">Until %1$s</string>
+</resources>

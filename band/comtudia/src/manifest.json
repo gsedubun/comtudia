@@ -1,0 +1,38 @@
+{
+  "package": "com.comtudia.app",
+  "name": "comtudia",
+  "versionName": "1.0.0",
+  "versionCode": 1,
+  "minPlatformVersion": 1000,
+  "minAPILevel": 1,
+  "icon": "/common/icon.png",
+  "deviceTypeList": ["watch"],
+  "features": [
+    { "name": "system.router" },
+    { "name": "system.storage" }
+  ],
+  "config": {
+    "logLevel": "warn",
+    "designWidth": 168
+  },
+  "display": {
+    "backgroundColor": "#000000"
+  },
+  "router": {
+    "entry": "pages/index",
+    "pages": {
+      "pages/index": {
+        "component": "index",
+        "path": "/"
+      },
+      "pages/schedule": {
+        "component": "schedule",
+        "path": "/pages/schedule"
+      },
+      "pages/settings": {
+        "component": "settings",
+        "path": "/pages/settings"
+      }
+    }
+  }
+}
