@@ -37,13 +37,6 @@ make wear-build             # android/wear/build/outputs/apk/debug/wear-debug.ap
 make android-test           # JVM unit tests + Go/Kotlin golden parity
 ```
 
-Band (Vela Quick App):
-
-```bash
-tools/band-build.sh         # RPK in band/comtudia/dist/ (needs Node or AIoT-IDE)
-tools/deploy-rpk.sh --rpk <file>   # sideload via Mi Fitness debug page over ADB
-```
-
 Debian/Ubuntu build dependencies:
 
 ```bash
@@ -67,8 +60,7 @@ sudo apt install golang-go gcc pkg-config libgl1-mesa-dev xorg-dev \
   used by both phone and watch.
 - `android/wear/` — Wear OS app; renders the plan pushed by the phone over the
   Wearable Data Layer.
-- `band/` — standalone Vela JS Quick App for the Xiaomi Smart Band 9 Pro.
-- `tools/` — Android toolchain bootstrap, RPK build and deploy scripts.
+- `tools/` — Android toolchain bootstrap.
 
 Keep schedule and persistence logic out of the UI package when possible so it
 remains testable without a display.
@@ -120,8 +112,8 @@ remains testable without a display.
   `setAndAllowWhileIdle` instead of failing.
 - Do not add a foreground service for the countdown. The ongoing notification
   uses a SystemUI chronometer, which keeps ticking without the app running.
-- Keep `applicationId` `com.comtudia.app`; the band RPK `package` must match for
-  a future Interconnect bridge.
+- Keep `applicationId` `com.comtudia.app`; the Wear OS APK uses the same ID
+  because the Wearable Data Layer is scoped by package name.
 - `MainActivity` may only be edited together with the Compose screens it wires.
 
 ## Wear OS rules
@@ -137,18 +129,6 @@ remains testable without a display.
 - Watch UI uses Wear Material 1.4.x with Compose 1.7. Wear Material3 only ships
   from 1.5 and needs a newer Compose; do not mix them casually.
 - Update `docs/wear.md` whenever the install or sync flow changes.
-
-## Band rules
-
-- The Xiaomi Smart Band 9 Pro runs Vela OS, not Wear OS. Apps are Vela JS Quick
-  Apps (`.rpk`) sideloaded through Mi Fitness's hidden debug page over ADB.
-- Keep `band/comtudia/src/common/plan.js` in step with `core`; run
-  `node band/comtudia/test/schedule-check.js` after touching it.
-- Target 336x480 with `designWidth: 168`, AMOLED black, no images, no network.
-- Compute the countdown from the phase-end timestamp; timers run only while the
-  page is visible.
-- Never claim the RPK works on hardware until it has been tried on the device.
-  Global firmware reportedly crashes on custom RPKs.
 
 ## Persistence rules
 
@@ -170,7 +150,6 @@ remains testable without a display.
 - Run `make check` and `go test -race ./...` before finishing.
 - Android changes must keep `make android-test` green, including the Go/Kotlin
   golden vectors. Add a Kotlin test for every new schedule rule.
-- Band changes must keep `node band/comtudia/test/schedule-check.js` green.
 
 ## Screenshots
 
@@ -178,7 +157,6 @@ remains testable without a display.
 - Settings: `docs/settings.png`
 - Android: `docs/android-dashboard.png`, `docs/android-settings.png`
 - Wear OS: `docs/wear-dashboard.png` (450x450, from the watch)
-- Band: `docs/band-dashboard.png` (336x480, from the emulator or the device)
 - Regenerate after UI/name changes.
 - When generating screenshots, use a temporary `XDG_CONFIG_HOME` so the user's
   real plan is not modified.
@@ -190,10 +168,9 @@ remains testable without a display.
 ## Guardrails
 
 - Do not edit `prompt.md`.
-- Do not commit build artifacts from `bin/`, `android/**/build/`, or
-  `band/**/dist/`.
-- Do not commit APKs, keystores, RPKs, `node_modules/`, or the generated
-  `android/env.sh` / `android/local.properties`.
+- Do not commit build artifacts from `bin/` or `android/**/build/`.
+- Do not commit APKs, keystores, or the generated `android/env.sh` /
+  `android/local.properties`.
 - Do not silently change the app ID, module path, or config location.
 - Keep the app name lowercase: `comtudia`.
 - Preserve existing user plans through the legacy config migration.

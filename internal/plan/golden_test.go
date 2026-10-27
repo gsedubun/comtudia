@@ -22,7 +22,7 @@ var update = flag.Bool("update", false, "update golden files")
 // goldenPath is the canonical location of the cross-platform schedule vectors.
 // The Android unit tests load the same file from their resources.
 var goldenPath = filepath.Join(
-	"..", "..", "android", "app", "src", "test", "resources", "schedule-golden.json",
+	"..", "..", "android", "core", "src", "test", "resources", "schedule-golden.json",
 )
 
 type goldenPlan struct {

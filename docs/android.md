@@ -5,10 +5,9 @@ phone running Android 8.0 or newer. It is the same daily eating plan as the
 desktop app, with the same `plan.json` document, so a plan can be moved between
 the two.
 
-The phone app is also the bridge to the Xiaomi Smart Band 9 Pro: Mi Fitness
-mirrors its notifications to the band, which means the band shows the current
-phase and a live countdown without any on-band software. See
-[band.md](band.md) for the optional Vela Quick App.
+The phone app is the source of truth for the Wear OS companion: the watch
+renders the plan the phone pushes over the Wearable Data Layer. See
+[wear.md](wear.md).
 
 ## Identity
 
@@ -75,32 +74,25 @@ developer; the app is not from Play Store.
 ### First run
 
 1. **Notifications** – allow the permission when prompted. Without it, phase
-   alerts and the band mirroring do nothing.
+   alerts do nothing.
 2. **Exact alarms** – if the dashboard shows "Exact alarms are off", tap
    **Fix** and allow *Alarms & reminders*. Without it, alerts still fire but
    can be late.
 3. **Battery** – Android and One UI may kill a background app. Open
    *Settings -> Apps -> comtudia -> Battery* and choose **Unrestricted**, then
    *Recent apps -> comtudia -> Keep open* if your One UI build offers it.
-   Repeat the battery step for **Mi Fitness**, which is what actually talks to
-   the band.
 
-## Band notifications (no RPK required)
+## Notifications
 
-1. Mi Fitness -> **Device** -> **Notifications and calls** -> **App
-   notifications** -> enable **comtudia** (and notifications generally).
-2. Wear the band; Mi Fitness only mirrors while the band is worn.
-3. Keep Mi Fitness unrestricted in battery settings; Samsung frequently freezes
-   it, which silently stops mirroring.
-
-The ongoing card is the useful one: it sticks in the shade with a countdown
-chronometer, and the band shows "Fasting · Until 12:00 · 4:12:33". Phase-change
-alerts arrive with the messages from the desktop app ("Eating window open",
-"Fasting started", ...).
-
-Some Mi Fitness builds do not mirror ongoing/low-importance notifications.
-If the band shows alerts but not the countdown card, raise the `ongoing`
-channel importance in Android settings or rely on the phase alerts.
+- The ongoing card stays in the notification shade with a countdown chronometer
+  that SystemUI keeps ticking, so no foreground service is needed.
+- Phase-change alerts use the desktop wording ("Eating window open",
+  "Fasting started", ...) and fire once per contiguous phase.
+- Some launchers and OEM skins hide low-importance channels. If the countdown
+  card does not appear, raise the `ongoing` channel importance in Android
+  settings or rely on the phase alerts.
+- Any paired watch that mirrors phone notifications shows the same alerts and
+  countdown.
 
 ## Moving a plan between desktop and phone
 
@@ -129,7 +121,7 @@ behaviour, and the scan of yesterday/today/tomorrow.
 
 ### Parity guard
 
-`internal/plan/golden_test.go` emits `android/app/src/test/resources/schedule-golden.json`
+`internal/plan/golden_test.go` emits `android/core/src/test/resources/schedule-golden.json`
 from the Go implementation; `ScheduleGoldenTest` asserts the Kotlin port
 produces identical slots, phases and boundaries, including DST days in
 Europe/Berlin and America/New_York. Regenerate after an intentional schedule
@@ -166,7 +158,6 @@ helper, and Go/Kotlin golden parity.
 | --- | --- |
 | `adb: no devices/emulators found` | Enable USB debugging, accept the RSA prompt, try another cable. |
 | No phase alerts | Grant notifications, set the app to Unrestricted battery, allow exact alarms. |
-| Countdown card missing on the band | Enable comtudia in Mi Fitness app notifications, keep the band worn, unfreeze Mi Fitness. |
 | Alerts late by minutes | Exact alarms not granted; tap **Fix** on the dashboard banner. |
 | Plan will not import | The file must be a version 1 `plan.json`; newer versions and corrupt files are rejected on purpose. |
 | Imported plan rejected after editing | A field is out of range, for example a meal spread over 23h. The app validates on save. |

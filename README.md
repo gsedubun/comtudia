@@ -126,26 +126,22 @@ the new location. The old file is left in place as a backup.
 - "Keep running in tray when closed" only has an effect when a tray is
   available.
 
-## Android and smart band
+## Android and Wear OS
 
-There is an Android port in `android/` and an optional Xiaomi Smart Band 9 Pro
-app in `band/`. Both use the same plan model and the same `plan.json` document
+There is an Android port in `android/` and a Wear OS companion in
+`android/wear/`. Both use the same plan model and the same `plan.json` document
 as the desktop app, so a plan can be moved between them.
 
 - `android/` — Kotlin + Compose app (`com.comtudia.app`) with the same
-  dashboard, settings, notifications and exact-alarm scheduling. The phone app
-  also feeds the band: Mi Fitness mirrors its ongoing countdown card.
+  dashboard, settings, notifications and exact-alarm scheduling.
 - `android/wear/` — Wear OS app for Galaxy Watch 4/5/6/7 and Watch FE. It
   renders the plan the phone pushes over the Wearable Data Layer, so the phone
   stays the source of truth.
-- `band/` — a standalone Vela JS Quick App for the band, sideloaded with
-  `tools/deploy-rpk.sh`. On the reference global Band 9 Pro it installs and is
-  listed, but launching it reboots the band, so the phone notification path is
-  the supported experience.
+- `android/core/` — shared JVM module with the plan, schedule, formatting and
+  notification logic used by both apps.
 
-See [docs/android.md](docs/android.md), [docs/wear.md](docs/wear.md) and
-[docs/band.md](docs/band.md) for building, installing, permissions, and the
-caveats of the unsupported band sideload path.
+See [docs/android.md](docs/android.md) and [docs/wear.md](docs/wear.md) for
+building, installing and permissions.
 
 ![comtudia on Android](docs/android-dashboard.png)
 
@@ -156,7 +152,6 @@ tools/android-env.sh                  # JDK 17 + Android SDK + Gradle, no sudo
 make android-build                    # debug phone APK
 make wear-build                       # debug Wear OS APK
 make android-test                     # JVM tests incl. Go parity vectors
-tools/band-build.sh                   # RPK (needs Node or AIoT-IDE)
 ```
 
 ## Project layout
@@ -168,9 +163,10 @@ internal/store/          atomic JSON persistence and legacy migration
 internal/notify/         phase-change notification logic
 internal/format/         countdown and time formatting
 internal/ui/             Fyne dashboard, settings, ring, timeline, tray
-android/                 Android app (Kotlin, Compose)
-band/                    Vela Quick App for the Xiaomi Smart Band 9 Pro
-tools/                   Android toolchain, RPK build and deploy scripts
+android/                 Android phone app (Kotlin, Compose)
+android/core/            shared plan/schedule module
+android/wear/            Wear OS app
+tools/                   Android toolchain bootstrap
 docs/                    screenshots and platform guides
 AGENTS.md                instructions for coding agents
 ```

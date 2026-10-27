@@ -48,9 +48,5 @@ android/app/release/
 *.jks
 *.keystore
 
-# Vela / band build output
-band/**/dist/
-band/**/node_modules/
-band/**/sign/
 .idea/
 

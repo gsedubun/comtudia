@@ -9,10 +9,10 @@
 | --- | --- | --- |
 | Linux desktop | Go + Fyne, this document | `make run` |
 | Android | `android/` (Kotlin + Compose) | Ports `internal/plan`; parity-tested by `internal/plan/golden_test.go` |
-| Xiaomi Smart Band 9 Pro | `band/` (Vela JS Quick App) | Sideloaded; see `docs/band.md` |
+| Wear OS | `android/wear/` (Kotlin + Compose for Wear) | Syncs the plan from the phone over the Wearable Data Layer |
 
 All platforms share the same 24-hour cycle and the same `plan.json` schema.
-See [docs/android.md](docs/android.md) and [docs/band.md](docs/band.md).
+See [docs/android.md](docs/android.md) and [docs/wear.md](docs/wear.md).
 
 ## Identity
 

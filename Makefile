@@ -1,7 +1,7 @@
 APP := comtudia
 BIN := bin/$(APP)
 
-.PHONY: run build test vet fmt tidy check clean android-env android-build android-test wear-build band-build
+.PHONY: run build test vet fmt tidy check clean android-env android-build android-test wear-build
 
 run:
 	go run .
@@ -35,9 +35,6 @@ android-test:
 
 wear-build:
 	@if [ -f android/env.sh ]; then . ./android/env.sh; fi; cd android && ./gradlew :wear:assembleDebug
-
-band-build:
-	./tools/band-build.sh
 
 clean:
 	rm -rf bin

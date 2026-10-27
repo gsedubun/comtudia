@@ -5,8 +5,8 @@ It shows the current phase and a drift-free countdown, and **syncs the plan from
 the phone**: the watch never edits the plan, so the phone stays the single
 source of truth.
 
-Unlike the Xiaomi band, this is a real Android app: `adb install`, no firmware
-hacks, no crash risk.
+It installs with `adb` like any Android app: no firmware hacks, no sideload
+workarounds.
 
 ![comtudia on a Galaxy Watch5](wear-dashboard.png)
 
