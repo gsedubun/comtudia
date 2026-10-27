@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.comtudia.app.core.PlanTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2026-10-27T07:36:38" hostname="del-pc" time="0.005">
+  <properties/>
+  <testcase name="summary" classname="com.comtudia.app.core.PlanTest" time="0.001"/>
+  <testcase name="mealRangesEmptyWhenImpossible" classname="com.comtudia.app.core.PlanTest" time="0.0"/>
+  <testcase name="requireValidThrows" classname="com.comtudia.app.core.PlanTest" time="0.001"/>
+  <testcase name="validateMatrix" classname="com.comtudia.app.core.PlanTest" time="0.001"/>
+  <testcase name="mealRangesContiguous" classname="com.comtudia.app.core.PlanTest" time="0.0"/>
+  <testcase name="mealRangesWithGap" classname="com.comtudia.app.core.PlanTest" time="0.001"/>
+  <testcase name="defaultPlanIsValid" classname="com.comtudia.app.core.PlanTest" time="0.0"/>
+  <testcase name="validationMessagesMatchDesktop" classname="com.comtudia.app.core.PlanTest" time="0.0"/>
+  <testcase name="mealRangesGiveLeftoverMinutesToEarliestMeals" classname="com.comtudia.app.core.PlanTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

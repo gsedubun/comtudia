@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.comtudia.app.core.FormatTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2026-10-27T07:36:38" hostname="del-pc" time="0.055">
+  <properties/>
+  <testcase name="duration" classname="com.comtudia.app.core.FormatTest" time="0.03"/>
+  <testcase name="clockUses24Hours" classname="com.comtudia.app.core.FormatTest" time="0.001"/>
+  <testcase name="durationCompact" classname="com.comtudia.app.core.FormatTest" time="0.0"/>
+  <testcase name="dayNameAndSameDate" classname="com.comtudia.app.core.FormatTest" time="0.01"/>
+  <testcase name="ranges" classname="com.comtudia.app.core.FormatTest" time="0.007"/>
+  <testcase name="dayClockAndWhen" classname="com.comtudia.app.core.FormatTest" time="0.001"/>
+  <testcase name="clockMinutesWraps" classname="com.comtudia.app.core.FormatTest" time="0.003"/>
+  <testcase name="minutes" classname="com.comtudia.app.core.FormatTest" time="0.0"/>
+  <testcase name="countdown" classname="com.comtudia.app.core.FormatTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

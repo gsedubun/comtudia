@@ -41,6 +41,7 @@ import com.comtudia.app.data.PhaseStateStore
 import com.comtudia.app.data.PlanRepository
 import com.comtudia.app.notify.Notifications
 import com.comtudia.app.notify.PhaseNotifications
+import com.comtudia.app.sync.WearSync
 import com.comtudia.app.ui.DashboardScreen
 import com.comtudia.app.ui.SettingsScreen
 import com.comtudia.app.ui.theme.ComtudiaTheme
@@ -208,6 +209,7 @@ class MainActivity : ComponentActivity() {
 
         if (prime || !stateStore.isPrimed()) stateStore.record(state)
         scheduler.schedule(state)
+        WearSync.pushPlan(this, plan)
         if (plan.notifications) notifications.showOngoing(state) else notifications.cancelOngoing()
     }
 

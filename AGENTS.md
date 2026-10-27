@@ -33,6 +33,7 @@ Android (toolchain is local, no sudo):
 make android-env            # JDK 17 + Android SDK 35 + Gradle 8.9 under ~/.local
 source android/env.sh
 make android-build          # android/app/build/outputs/apk/debug/app-debug.apk
+make wear-build             # android/wear/build/outputs/apk/debug/wear-debug.apk
 make android-test           # JVM unit tests + Go/Kotlin golden parity
 ```
 
@@ -60,9 +61,12 @@ sudo apt install golang-go gcc pkg-config libgl1-mesa-dev xorg-dev \
 - `internal/notify/` — phase-change notification messages.
 - `internal/format/` — countdown/time formatting.
 - `internal/ui/` — Fyne dashboard, settings, custom widgets, tray.
-- `android/` — Kotlin + Compose app; `core/` is a port of `internal/plan`,
-  `internal/format`, and `internal/notify`, `data/` persists the same
+- `android/` — Kotlin + Compose phone app; `data/` persists the same
   `plan.json`, `notify/` and `alarm/` own Android notifications.
+- `android/core/` — shared JVM module (plan, schedule, format, notify, JSON)
+  used by both phone and watch.
+- `android/wear/` — Wear OS app; renders the plan pushed by the phone over the
+  Wearable Data Layer.
 - `band/` — standalone Vela JS Quick App for the Xiaomi Smart Band 9 Pro.
 - `tools/` — Android toolchain bootstrap, RPK build and deploy scripts.
 
@@ -119,6 +123,20 @@ remains testable without a display.
 - Keep `applicationId` `com.comtudia.app`; the band RPK `package` must match for
   a future Interconnect bridge.
 - `MainActivity` may only be edited together with the Compose screens it wires.
+
+## Wear OS rules
+
+- The phone is the source of truth. The watch renders the last plan it received
+  and must never edit it.
+- Both APKs use `applicationId` `com.comtudia.app`; the Wearable Data Layer is
+  scoped by package name, so this must not drift.
+- Wire format: data item `/comtudia/plan` carrying the `json` field, and message
+  `/comtudia/request` from the watch. Keep the path constants in one place per
+  side.
+- The watch must work offline with the last synced document.
+- Watch UI uses Wear Material 1.4.x with Compose 1.7. Wear Material3 only ships
+  from 1.5 and needs a newer Compose; do not mix them casually.
+- Update `docs/wear.md` whenever the install or sync flow changes.
 
 ## Band rules
 

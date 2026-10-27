@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.comtudia.app.core.NotifyTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-10-27T07:36:38" hostname="del-pc" time="0.018">
+  <properties/>
+  <testcase name="contiguousMealsNotifyOncePerPhase" classname="com.comtudia.app.core.NotifyTest" time="0.014"/>
+  <testcase name="singleMealUsesEatingTimeMessage" classname="com.comtudia.app.core.NotifyTest" time="0.0"/>
+  <testcase name="resetPrimesAgain" classname="com.comtudia.app.core.NotifyTest" time="0.001"/>
+  <testcase name="gapsProduceSeparateMealPhases" classname="com.comtudia.app.core.NotifyTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

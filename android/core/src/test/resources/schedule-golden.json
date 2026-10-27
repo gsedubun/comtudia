@@ -1,0 +1,1483 @@
+{
+  "cases": [
+    {
+      "name": "default-before-window",
+      "zone": "UTC",
+      "plan": {
+        "version": 1,
+        "eating_minutes": 360,
+        "meals": 3,
+        "gap_minutes": 0,
+        "window_start_minutes": 720,
+        "notifications": true,
+        "run_in_tray": false
+      },
+      "now": "2026-10-26T10:00:00Z",
+      "slots": [
+        {
+          "index": 1,
+          "start": "2026-10-25T12:00:00Z",
+          "end": "2026-10-25T14:00:00Z"
+        },
+        {
+          "index": 2,
+          "start": "2026-10-25T14:00:00Z",
+          "end": "2026-10-25T16:00:00Z"
+        },
+        {
+          "index": 3,
+          "start": "2026-10-25T16:00:00Z",
+          "end": "2026-10-25T18:00:00Z"
+        },
+        {
+          "index": 1,
+          "start": "2026-10-26T12:00:00Z",
+          "end": "2026-10-26T14:00:00Z"
+        },
+        {
+          "index": 2,
+          "start": "2026-10-26T14:00:00Z",
+          "end": "2026-10-26T16:00:00Z"
+        },
+        {
+          "index": 3,
+          "start": "2026-10-26T16:00:00Z",
+          "end": "2026-10-26T18:00:00Z"
+        },
+        {
+          "index": 1,
+          "start": "2026-10-27T12:00:00Z",
+          "end": "2026-10-27T14:00:00Z"
+        },
+        {
+          "index": 2,
+          "start": "2026-10-27T14:00:00Z",
+          "end": "2026-10-27T16:00:00Z"
+        },
+        {
+          "index": 3,
+          "start": "2026-10-27T16:00:00Z",
+          "end": "2026-10-27T18:00:00Z"
+        }
+      ],
+      "state": {
+        "phase": "fasting",
+        "phaseStart": "2026-10-25T18:00:00Z",
+        "phaseEnd": "2026-10-26T12:00:00Z",
+        "currentMealIndex": null,
+        "nextMealIndex": 1,
+        "firstMealIndex": 1,
+        "lastMealIndex": 3,
+        "nextEatingPhaseStart": "2026-10-26T12:00:00Z",
+        "nextWindowStart": "2026-10-26T12:00:00Z",
+        "remainingSeconds": 7200,
+        "progress": 0.8888888888888888
+      },
+      "formatted": {
+        "countdown": "02:00:00",
+        "duration": "2h",
+        "clockPhaseEnd": "12:00"
+      }
+    },
+    {
+      "name": "default-window-start",
+      "zone": "UTC",
+      "plan": {
+        "version": 1,
+        "eating_minutes": 360,
+        "meals": 3,
+        "gap_minutes": 0,
+        "window_start_minutes": 720,
+        "notifications": true,
+        "run_in_tray": false
+      },
+      "now": "2026-10-26T12:00:00Z",
+      "slots": [
+        {
+          "index": 1,
+          "start": "2026-10-25T12:00:00Z",
+          "end": "2026-10-25T14:00:00Z"
+        },
+        {
+          "index": 2,
+          "start": "2026-10-25T14:00:00Z",
+          "end": "2026-10-25T16:00:00Z"
+        },
+        {
+          "index": 3,
+          "start": "2026-10-25T16:00:00Z",
+          "end": "2026-10-25T18:00:00Z"
+        },
+        {
+          "index": 1,
+          "start": "2026-10-26T12:00:00Z",
+          "end": "2026-10-26T14:00:00Z"
+        },
+        {
+          "index": 2,
+          "start": "2026-10-26T14:00:00Z",
+          "end": "2026-10-26T16:00:00Z"
+        },
+        {
+          "index": 3,
+          "start": "2026-10-26T16:00:00Z",
+          "end": "2026-10-26T18:00:00Z"
+        },
+        {
+          "index": 1,
+          "start": "2026-10-27T12:00:00Z",
+          "end": "2026-10-27T14:00:00Z"
+        },
+        {
+          "index": 2,
+          "start": "2026-10-27T14:00:00Z",
+          "end": "2026-10-27T16:00:00Z"
+        },
+        {
+          "index": 3,
+          "start": "2026-10-27T16:00:00Z",
+          "end": "2026-10-27T18:00:00Z"
+        }
+      ],
+      "state": {
+        "phase": "eating",
+        "phaseStart": "2026-10-26T12:00:00Z",
+        "phaseEnd": "2026-10-26T18:00:00Z",
+        "currentMealIndex": 1,
+        "nextMealIndex": 2,
+        "firstMealIndex": 1,
+        "lastMealIndex": 3,
+        "nextEatingPhaseStart": "2026-10-27T12:00:00Z",
+        "nextWindowStart": "2026-10-27T12:00:00Z",
+        "remainingSeconds": 21600,
+        "progress": 0
+      },
+      "formatted": {
+        "countdown": "06:00:00",
+        "duration": "6h",
+        "clockPhaseEnd": "18:00"
+      }
+    },
+    {
+      "name": "default-mid-meal",
+      "zone": "UTC",
+      "plan": {
+        "version": 1,
+        "eating_minutes": 360,
+        "meals": 3,
+        "gap_minutes": 0,
+        "window_start_minutes": 720,
+        "notifications": true,
+        "run_in_tray": false
+      },
+      "now": "2026-10-26T14:00:00Z",
+      "slots": [
+        {
+          "index": 1,
+          "start": "2026-10-25T12:00:00Z",
+          "end": "2026-10-25T14:00:00Z"
+        },
+        {
+          "index": 2,
+          "start": "2026-10-25T14:00:00Z",
+          "end": "2026-10-25T16:00:00Z"
+        },
+        {
+          "index": 3,
+          "start": "2026-10-25T16:00:00Z",
+          "end": "2026-10-25T18:00:00Z"
+        },
+        {
+          "index": 1,
+          "start": "2026-10-26T12:00:00Z",
+          "end": "2026-10-26T14:00:00Z"
+        },
+        {
+          "index": 2,
+          "start": "2026-10-26T14:00:00Z",
+          "end": "2026-10-26T16:00:00Z"
+        },
+        {
+          "index": 3,
+          "start": "2026-10-26T16:00:00Z",
+          "end": "2026-10-26T18:00:00Z"
+        },
+        {
+          "index": 1,
+          "start": "2026-10-27T12:00:00Z",
+          "end": "2026-10-27T14:00:00Z"
+        },
+        {
+          "index": 2,
+          "start": "2026-10-27T14:00:00Z",
+          "end": "2026-10-27T16:00:00Z"
+        },
+        {
+          "index": 3,
+          "start": "2026-10-27T16:00:00Z",
+          "end": "2026-10-27T18:00:00Z"
+        }
+      ],
+      "state": {
+        "phase": "eating",
+        "phaseStart": "2026-10-26T12:00:00Z",
+        "phaseEnd": "2026-10-26T18:00:00Z",
+        "currentMealIndex": 2,
+        "nextMealIndex": 3,
+        "firstMealIndex": 1,
+        "lastMealIndex": 3,
+        "nextEatingPhaseStart": "2026-10-27T12:00:00Z",
+        "nextWindowStart": "2026-10-27T12:00:00Z",
+        "remainingSeconds": 14400,
+        "progress": 0.3333333333333333
+      },
+      "formatted": {
+        "countdown": "04:00:00",
+        "duration": "4h",
+        "clockPhaseEnd": "18:00"
+      }
+    },
+    {
+      "name": "default-window-end",
+      "zone": "UTC",
+      "plan": {
+        "version": 1,
+        "eating_minutes": 360,
+        "meals": 3,
+        "gap_minutes": 0,
+        "window_start_minutes": 720,
+        "notifications": true,
+        "run_in_tray": false
+      },
+      "now": "2026-10-26T18:00:00Z",
+      "slots": [
+        {
+          "index": 1,
+          "start": "2026-10-25T12:00:00Z",
+          "end": "2026-10-25T14:00:00Z"
+        },
+        {
+          "index": 2,
+          "start": "2026-10-25T14:00:00Z",
+          "end": "2026-10-25T16:00:00Z"
+        },
+        {
+          "index": 3,
+          "start": "2026-10-25T16:00:00Z",
+          "end": "2026-10-25T18:00:00Z"
+        },
+        {
+          "index": 1,
+          "start": "2026-10-26T12:00:00Z",
+          "end": "2026-10-26T14:00:00Z"
+        },
+        {
+          "index": 2,
+          "start": "2026-10-26T14:00:00Z",
+          "end": "2026-10-26T16:00:00Z"
+        },
+        {
+          "index": 3,
+          "start": "2026-10-26T16:00:00Z",
+          "end": "2026-10-26T18:00:00Z"
+        },
+        {
+          "index": 1,
+          "start": "2026-10-27T12:00:00Z",
+          "end": "2026-10-27T14:00:00Z"
+        },
+        {
+          "index": 2,
+          "start": "2026-10-27T14:00:00Z",
+          "end": "2026-10-27T16:00:00Z"
+        },
+        {
+          "index": 3,
+          "start": "2026-10-27T16:00:00Z",
+          "end": "2026-10-27T18:00:00Z"
+        }
+      ],
+      "state": {
+        "phase": "fasting",
+        "phaseStart": "2026-10-26T18:00:00Z",
+        "phaseEnd": "2026-10-27T12:00:00Z",
+        "currentMealIndex": null,
+        "nextMealIndex": 1,
+        "firstMealIndex": 1,
+        "lastMealIndex": 3,
+        "nextEatingPhaseStart": "2026-10-27T12:00:00Z",
+        "nextWindowStart": "2026-10-27T12:00:00Z",
+        "remainingSeconds": 64800,
+        "progress": 0
+      },
+      "formatted": {
+        "countdown": "18:00:00",
+        "duration": "18h",
+        "clockPhaseEnd": "12:00"
+      }
+    },
+    {
+      "name": "default-one-second-before-close",
+      "zone": "UTC",
+      "plan": {
+        "version": 1,
+        "eating_minutes": 360,
+        "meals": 3,
+        "gap_minutes": 0,
+        "window_start_minutes": 720,
+        "notifications": true,
+        "run_in_tray": false
+      },
+      "now": "2026-10-26T17:59:59Z",
+      "slots": [
+        {
+          "index": 1,
+          "start": "2026-10-25T12:00:00Z",
+          "end": "2026-10-25T14:00:00Z"
+        },
+        {
+          "index": 2,
+          "start": "2026-10-25T14:00:00Z",
+          "end": "2026-10-25T16:00:00Z"
+        },
+        {
+          "index": 3,
+          "start": "2026-10-25T16:00:00Z",
+          "end": "2026-10-25T18:00:00Z"
+        },
+        {
+          "index": 1,
+          "start": "2026-10-26T12:00:00Z",
+          "end": "2026-10-26T14:00:00Z"
+        },
+        {
+          "index": 2,
+          "start": "2026-10-26T14:00:00Z",
+          "end": "2026-10-26T16:00:00Z"
+        },
+        {
+          "index": 3,
+          "start": "2026-10-26T16:00:00Z",
+          "end": "2026-10-26T18:00:00Z"
+        },
+        {
+          "index": 1,
+          "start": "2026-10-27T12:00:00Z",
+          "end": "2026-10-27T14:00:00Z"
+        },
+        {
+          "index": 2,
+          "start": "2026-10-27T14:00:00Z",
+          "end": "2026-10-27T16:00:00Z"
+        },
+        {
+          "index": 3,
+          "start": "2026-10-27T16:00:00Z",
+          "end": "2026-10-27T18:00:00Z"
+        }
+      ],
+      "state": {
+        "phase": "eating",
+        "phaseStart": "2026-10-26T12:00:00Z",
+        "phaseEnd": "2026-10-26T18:00:00Z",
+        "currentMealIndex": 3,
+        "nextMealIndex": 1,
+        "firstMealIndex": 1,
+        "lastMealIndex": 3,
+        "nextEatingPhaseStart": "2026-10-27T12:00:00Z",
+        "nextWindowStart": "2026-10-27T12:00:00Z",
+        "remainingSeconds": 1,
+        "progress": 0.9999537037037037
+      },
+      "formatted": {
+        "countdown": "00:00:01",
+        "duration": "1m",
+        "clockPhaseEnd": "18:00"
+      }
+    },
+    {
+      "name": "sixteen-eight-two-meals",
+      "zone": "UTC",
+      "plan": {
+        "version": 1,
+        "eating_minutes": 480,
+        "meals": 2,
+        "gap_minutes": 0,
+        "window_start_minutes": 720,
+        "notifications": true,
+        "run_in_tray": false
+      },
+      "now": "2026-10-26T15:00:00Z",
+      "slots": [
+        {
+          "index": 1,
+          "start": "2026-10-25T12:00:00Z",
+          "end": "2026-10-25T16:00:00Z"
+        },
+        {
+          "index": 2,
+          "start": "2026-10-25T16:00:00Z",
+          "end": "2026-10-25T20:00:00Z"
+        },
+        {
+          "index": 1,
+          "start": "2026-10-26T12:00:00Z",
+          "end": "2026-10-26T16:00:00Z"
+        },
+        {
+          "index": 2,
+          "start": "2026-10-26T16:00:00Z",
+          "end": "2026-10-26T20:00:00Z"
+        },
+        {
+          "index": 1,
+          "start": "2026-10-27T12:00:00Z",
+          "end": "2026-10-27T16:00:00Z"
+        },
+        {
+          "index": 2,
+          "start": "2026-10-27T16:00:00Z",
+          "end": "2026-10-27T20:00:00Z"
+        }
+      ],
+      "state": {
+        "phase": "eating",
+        "phaseStart": "2026-10-26T12:00:00Z",
+        "phaseEnd": "2026-10-26T20:00:00Z",
+        "currentMealIndex": 1,
+        "nextMealIndex": 2,
+        "firstMealIndex": 1,
+        "lastMealIndex": 2,
+        "nextEatingPhaseStart": "2026-10-27T12:00:00Z",
+        "nextWindowStart": "2026-10-27T12:00:00Z",
+        "remainingSeconds": 18000,
+        "progress": 0.375
+      },
+      "formatted": {
+        "countdown": "05:00:00",
+        "duration": "5h",
+        "clockPhaseEnd": "20:00"
+      }
+    },
+    {
+      "name": "twenty-four-gap",
+      "zone": "UTC",
+      "plan": {
+        "version": 1,
+        "eating_minutes": 240,
+        "meals": 2,
+        "gap_minutes": 30,
+        "window_start_minutes": 720,
+        "notifications": true,
+        "run_in_tray": false
+      },
+      "now": "2026-10-26T14:15:00Z",
+      "slots": [
+        {
+          "index": 1,
+          "start": "2026-10-25T12:00:00Z",
+          "end": "2026-10-25T14:00:00Z"
+        },
+        {
+          "index": 2,
+          "start": "2026-10-25T14:30:00Z",
+          "end": "2026-10-25T16:30:00Z"
+        },
+        {
+          "index": 1,
+          "start": "2026-10-26T12:00:00Z",
+          "end": "2026-10-26T14:00:00Z"
+        },
+        {
+          "index": 2,
+          "start": "2026-10-26T14:30:00Z",
+          "end": "2026-10-26T16:30:00Z"
+        },
+        {
+          "index": 1,
+          "start": "2026-10-27T12:00:00Z",
+          "end": "2026-10-27T14:00:00Z"
+        },
+        {
+          "index": 2,
+          "start": "2026-10-27T14:30:00Z",
+          "end": "2026-10-27T16:30:00Z"
+        }
+      ],
+      "state": {
+        "phase": "fasting",
+        "phaseStart": "2026-10-26T14:00:00Z",
+        "phaseEnd": "2026-10-26T14:30:00Z",
+        "currentMealIndex": null,
+        "nextMealIndex": 2,
+        "firstMealIndex": 2,
+        "lastMealIndex": 2,
+        "nextEatingPhaseStart": "2026-10-26T14:30:00Z",
+        "nextWindowStart": "2026-10-27T12:00:00Z",
+        "remainingSeconds": 900,
+        "progress": 0.5
+      },
+      "formatted": {
+        "countdown": "00:15:00",
+        "duration": "15m",
+        "clockPhaseEnd": "14:30"
+      }
+    },
+    {
+      "name": "twenty-four-second-meal",
+      "zone": "UTC",
+      "plan": {
+        "version": 1,
+        "eating_minutes": 240,
+        "meals": 2,
+        "gap_minutes": 30,
+        "window_start_minutes": 720,
+        "notifications": true,
+        "run_in_tray": false
+      },
+      "now": "2026-10-26T15:00:00Z",
+      "slots": [
+        {
+          "index": 1,
+          "start": "2026-10-25T12:00:00Z",
+          "end": "2026-10-25T14:00:00Z"
+        },
+        {
+          "index": 2,
+          "start": "2026-10-25T14:30:00Z",
+          "end": "2026-10-25T16:30:00Z"
+        },
+        {
+          "index": 1,
+          "start": "2026-10-26T12:00:00Z",
+          "end": "2026-10-26T14:00:00Z"
+        },
+        {
+          "index": 2,
+          "start": "2026-10-26T14:30:00Z",
+          "end": "2026-10-26T16:30:00Z"
+        },
+        {
+          "index": 1,
+          "start": "2026-10-27T12:00:00Z",
+          "end": "2026-10-27T14:00:00Z"
+        },
+        {
+          "index": 2,
+          "start": "2026-10-27T14:30:00Z",
+          "end": "2026-10-27T16:30:00Z"
+        }
+      ],
+      "state": {
+        "phase": "eating",
+        "phaseStart": "2026-10-26T14:30:00Z",
+        "phaseEnd": "2026-10-26T16:30:00Z",
+        "currentMealIndex": 2,
+        "nextMealIndex": 1,
+        "firstMealIndex": 2,
+        "lastMealIndex": 2,
+        "nextEatingPhaseStart": "2026-10-27T12:00:00Z",
+        "nextWindowStart": "2026-10-27T12:00:00Z",
+        "remainingSeconds": 5400,
+        "progress": 0.25
+      },
+      "formatted": {
+        "countdown": "01:30:00",
+        "duration": "1h 30m",
+        "clockPhaseEnd": "16:30"
+      }
+    },
+    {
+      "name": "single-meal",
+      "zone": "UTC",
+      "plan": {
+        "version": 1,
+        "eating_minutes": 60,
+        "meals": 1,
+        "gap_minutes": 0,
+        "window_start_minutes": 720,
+        "notifications": true,
+        "run_in_tray": false
+      },
+      "now": "2026-10-26T12:30:00Z",
+      "slots": [
+        {
+          "index": 1,
+          "start": "2026-10-25T12:00:00Z",
+          "end": "2026-10-25T13:00:00Z"
+        },
+        {
+          "index": 1,
+          "start": "2026-10-26T12:00:00Z",
+          "end": "2026-10-26T13:00:00Z"
+        },
+        {
+          "index": 1,
+          "start": "2026-10-27T12:00:00Z",
+          "end": "2026-10-27T13:00:00Z"
+        }
+      ],
+      "state": {
+        "phase": "eating",
+        "phaseStart": "2026-10-26T12:00:00Z",
+        "phaseEnd": "2026-10-26T13:00:00Z",
+        "currentMealIndex": 1,
+        "nextMealIndex": 1,
+        "firstMealIndex": 1,
+        "lastMealIndex": 1,
+        "nextEatingPhaseStart": "2026-10-27T12:00:00Z",
+        "nextWindowStart": "2026-10-27T12:00:00Z",
+        "remainingSeconds": 1800,
+        "progress": 0.5
+      },
+      "formatted": {
+        "countdown": "00:30:00",
+        "duration": "30m",
+        "clockPhaseEnd": "13:00"
+      }
+    },
+    {
+      "name": "single-meal-after",
+      "zone": "UTC",
+      "plan": {
+        "version": 1,
+        "eating_minutes": 60,
+        "meals": 1,
+        "gap_minutes": 0,
+        "window_start_minutes": 720,
+        "notifications": true,
+        "run_in_tray": false
+      },
+      "now": "2026-10-26T20:00:00Z",
+      "slots": [
+        {
+          "index": 1,
+          "start": "2026-10-25T12:00:00Z",
+          "end": "2026-10-25T13:00:00Z"
+        },
+        {
+          "index": 1,
+          "start": "2026-10-26T12:00:00Z",
+          "end": "2026-10-26T13:00:00Z"
+        },
+        {
+          "index": 1,
+          "start": "2026-10-27T12:00:00Z",
+          "end": "2026-10-27T13:00:00Z"
+        }
+      ],
+      "state": {
+        "phase": "fasting",
+        "phaseStart": "2026-10-26T13:00:00Z",
+        "phaseEnd": "2026-10-27T12:00:00Z",
+        "currentMealIndex": null,
+        "nextMealIndex": 1,
+        "firstMealIndex": 1,
+        "lastMealIndex": 1,
+        "nextEatingPhaseStart": "2026-10-27T12:00:00Z",
+        "nextWindowStart": "2026-10-27T12:00:00Z",
+        "remainingSeconds": 57600,
+        "progress": 0.30434782608695654
+      },
+      "formatted": {
+        "countdown": "16:00:00",
+        "duration": "16h",
+        "clockPhaseEnd": "12:00"
+      }
+    },
+    {
+      "name": "midnight-window-current-meal",
+      "zone": "UTC",
+      "plan": {
+        "version": 1,
+        "eating_minutes": 360,
+        "meals": 3,
+        "gap_minutes": 0,
+        "window_start_minutes": 1320,
+        "notifications": true,
+        "run_in_tray": false
+      },
+      "now": "2026-10-27T00:30:00Z",
+      "slots": [
+        {
+          "index": 1,
+          "start": "2026-10-26T22:00:00Z",
+          "end": "2026-10-27T00:00:00Z"
+        },
+        {
+          "index": 2,
+          "start": "2026-10-27T00:00:00Z",
+          "end": "2026-10-27T02:00:00Z"
+        },
+        {
+          "index": 3,
+          "start": "2026-10-27T02:00:00Z",
+          "end": "2026-10-27T04:00:00Z"
+        },
+        {
+          "index": 1,
+          "start": "2026-10-27T22:00:00Z",
+          "end": "2026-10-28T00:00:00Z"
+        },
+        {
+          "index": 2,
+          "start": "2026-10-28T00:00:00Z",
+          "end": "2026-10-28T02:00:00Z"
+        },
+        {
+          "index": 3,
+          "start": "2026-10-28T02:00:00Z",
+          "end": "2026-10-28T04:00:00Z"
+        },
+        {
+          "index": 1,
+          "start": "2026-10-28T22:00:00Z",
+          "end": "2026-10-29T00:00:00Z"
+        },
+        {
+          "index": 2,
+          "start": "2026-10-29T00:00:00Z",
+          "end": "2026-10-29T02:00:00Z"
+        },
+        {
+          "index": 3,
+          "start": "2026-10-29T02:00:00Z",
+          "end": "2026-10-29T04:00:00Z"
+        }
+      ],
+      "state": {
+        "phase": "eating",
+        "phaseStart": "2026-10-26T22:00:00Z",
+        "phaseEnd": "2026-10-27T04:00:00Z",
+        "currentMealIndex": 2,
+        "nextMealIndex": 3,
+        "firstMealIndex": 1,
+        "lastMealIndex": 3,
+        "nextEatingPhaseStart": "2026-10-27T22:00:00Z",
+        "nextWindowStart": "2026-10-27T22:00:00Z",
+        "remainingSeconds": 12600,
+        "progress": 0.4166666666666667
+      },
+      "formatted": {
+        "countdown": "03:30:00",
+        "duration": "3h 30m",
+        "clockPhaseEnd": "04:00"
+      }
+    },
+    {
+      "name": "midnight-window-morning-fast",
+      "zone": "UTC",
+      "plan": {
+        "version": 1,
+        "eating_minutes": 360,
+        "meals": 3,
+        "gap_minutes": 0,
+        "window_start_minutes": 1320,
+        "notifications": true,
+        "run_in_tray": false
+      },
+      "now": "2026-10-27T06:00:00Z",
+      "slots": [
+        {
+          "index": 1,
+          "start": "2026-10-26T22:00:00Z",
+          "end": "2026-10-27T00:00:00Z"
+        },
+        {
+          "index": 2,
+          "start": "2026-10-27T00:00:00Z",
+          "end": "2026-10-27T02:00:00Z"
+        },
+        {
+          "index": 3,
+          "start": "2026-10-27T02:00:00Z",
+          "end": "2026-10-27T04:00:00Z"
+        },
+        {
+          "index": 1,
+          "start": "2026-10-27T22:00:00Z",
+          "end": "2026-10-28T00:00:00Z"
+        },
+        {
+          "index": 2,
+          "start": "2026-10-28T00:00:00Z",
+          "end": "2026-10-28T02:00:00Z"
+        },
+        {
+          "index": 3,
+          "start": "2026-10-28T02:00:00Z",
+          "end": "2026-10-28T04:00:00Z"
+        },
+        {
+          "index": 1,
+          "start": "2026-10-28T22:00:00Z",
+          "end": "2026-10-29T00:00:00Z"
+        },
+        {
+          "index": 2,
+          "start": "2026-10-29T00:00:00Z",
+          "end": "2026-10-29T02:00:00Z"
+        },
+        {
+          "index": 3,
+          "start": "2026-10-29T02:00:00Z",
+          "end": "2026-10-29T04:00:00Z"
+        }
+      ],
+      "state": {
+        "phase": "fasting",
+        "phaseStart": "2026-10-27T04:00:00Z",
+        "phaseEnd": "2026-10-27T22:00:00Z",
+        "currentMealIndex": null,
+        "nextMealIndex": 1,
+        "firstMealIndex": 1,
+        "lastMealIndex": 3,
+        "nextEatingPhaseStart": "2026-10-27T22:00:00Z",
+        "nextWindowStart": "2026-10-27T22:00:00Z",
+        "remainingSeconds": 57600,
+        "progress": 0.1111111111111111
+      },
+      "formatted": {
+        "countdown": "16:00:00",
+        "duration": "16h",
+        "clockPhaseEnd": "22:00"
+      }
+    },
+    {
+      "name": "window-at-midnight",
+      "zone": "UTC",
+      "plan": {
+        "version": 1,
+        "eating_minutes": 360,
+        "meals": 3,
+        "gap_minutes": 0,
+        "window_start_minutes": 0,
+        "notifications": true,
+        "run_in_tray": false
+      },
+      "now": "2026-10-26T01:00:00Z",
+      "slots": [
+        {
+          "index": 1,
+          "start": "2026-10-25T00:00:00Z",
+          "end": "2026-10-25T02:00:00Z"
+        },
+        {
+          "index": 2,
+          "start": "2026-10-25T02:00:00Z",
+          "end": "2026-10-25T04:00:00Z"
+        },
+        {
+          "index": 3,
+          "start": "2026-10-25T04:00:00Z",
+          "end": "2026-10-25T06:00:00Z"
+        },
+        {
+          "index": 1,
+          "start": "2026-10-26T00:00:00Z",
+          "end": "2026-10-26T02:00:00Z"
+        },
+        {
+          "index": 2,
+          "start": "2026-10-26T02:00:00Z",
+          "end": "2026-10-26T04:00:00Z"
+        },
+        {
+          "index": 3,
+          "start": "2026-10-26T04:00:00Z",
+          "end": "2026-10-26T06:00:00Z"
+        },
+        {
+          "index": 1,
+          "start": "2026-10-27T00:00:00Z",
+          "end": "2026-10-27T02:00:00Z"
+        },
+        {
+          "index": 2,
+          "start": "2026-10-27T02:00:00Z",
+          "end": "2026-10-27T04:00:00Z"
+        },
+        {
+          "index": 3,
+          "start": "2026-10-27T04:00:00Z",
+          "end": "2026-10-27T06:00:00Z"
+        }
+      ],
+      "state": {
+        "phase": "eating",
+        "phaseStart": "2026-10-26T00:00:00Z",
+        "phaseEnd": "2026-10-26T06:00:00Z",
+        "currentMealIndex": 1,
+        "nextMealIndex": 2,
+        "firstMealIndex": 1,
+        "lastMealIndex": 3,
+        "nextEatingPhaseStart": "2026-10-27T00:00:00Z",
+        "nextWindowStart": "2026-10-27T00:00:00Z",
+        "remainingSeconds": 18000,
+        "progress": 0.16666666666666666
+      },
+      "formatted": {
+        "countdown": "05:00:00",
+        "duration": "5h",
+        "clockPhaseEnd": "06:00"
+      }
+    },
+    {
+      "name": "short-eating-gap",
+      "zone": "UTC",
+      "plan": {
+        "version": 1,
+        "eating_minutes": 60,
+        "meals": 2,
+        "gap_minutes": 15,
+        "window_start_minutes": 600,
+        "notifications": true,
+        "run_in_tray": false
+      },
+      "now": "2026-10-26T10:50:00Z",
+      "slots": [
+        {
+          "index": 1,
+          "start": "2026-10-25T10:00:00Z",
+          "end": "2026-10-25T10:30:00Z"
+        },
+        {
+          "index": 2,
+          "start": "2026-10-25T10:45:00Z",
+          "end": "2026-10-25T11:15:00Z"
+        },
+        {
+          "index": 1,
+          "start": "2026-10-26T10:00:00Z",
+          "end": "2026-10-26T10:30:00Z"
+        },
+        {
+          "index": 2,
+          "start": "2026-10-26T10:45:00Z",
+          "end": "2026-10-26T11:15:00Z"
+        },
+        {
+          "index": 1,
+          "start": "2026-10-27T10:00:00Z",
+          "end": "2026-10-27T10:30:00Z"
+        },
+        {
+          "index": 2,
+          "start": "2026-10-27T10:45:00Z",
+          "end": "2026-10-27T11:15:00Z"
+        }
+      ],
+      "state": {
+        "phase": "eating",
+        "phaseStart": "2026-10-26T10:45:00Z",
+        "phaseEnd": "2026-10-26T11:15:00Z",
+        "currentMealIndex": 2,
+        "nextMealIndex": 1,
+        "firstMealIndex": 2,
+        "lastMealIndex": 2,
+        "nextEatingPhaseStart": "2026-10-27T10:00:00Z",
+        "nextWindowStart": "2026-10-27T10:00:00Z",
+        "remainingSeconds": 1500,
+        "progress": 0.16666666666666666
+      },
+      "formatted": {
+        "countdown": "00:25:00",
+        "duration": "25m",
+        "clockPhaseEnd": "11:15"
+      }
+    },
+    {
+      "name": "berlin-spring-forward-before",
+      "zone": "Europe/Berlin",
+      "plan": {
+        "version": 1,
+        "eating_minutes": 360,
+        "meals": 3,
+        "gap_minutes": 0,
+        "window_start_minutes": 720,
+        "notifications": true,
+        "run_in_tray": false
+      },
+      "now": "2026-03-29T01:30:00+01:00",
+      "slots": [
+        {
+          "index": 1,
+          "start": "2026-03-28T12:00:00+01:00",
+          "end": "2026-03-28T14:00:00+01:00"
+        },
+        {
+          "index": 2,
+          "start": "2026-03-28T14:00:00+01:00",
+          "end": "2026-03-28T16:00:00+01:00"
+        },
+        {
+          "index": 3,
+          "start": "2026-03-28T16:00:00+01:00",
+          "end": "2026-03-28T18:00:00+01:00"
+        },
+        {
+          "index": 1,
+          "start": "2026-03-29T12:00:00+02:00",
+          "end": "2026-03-29T14:00:00+02:00"
+        },
+        {
+          "index": 2,
+          "start": "2026-03-29T14:00:00+02:00",
+          "end": "2026-03-29T16:00:00+02:00"
+        },
+        {
+          "index": 3,
+          "start": "2026-03-29T16:00:00+02:00",
+          "end": "2026-03-29T18:00:00+02:00"
+        },
+        {
+          "index": 1,
+          "start": "2026-03-30T12:00:00+02:00",
+          "end": "2026-03-30T14:00:00+02:00"
+        },
+        {
+          "index": 2,
+          "start": "2026-03-30T14:00:00+02:00",
+          "end": "2026-03-30T16:00:00+02:00"
+        },
+        {
+          "index": 3,
+          "start": "2026-03-30T16:00:00+02:00",
+          "end": "2026-03-30T18:00:00+02:00"
+        }
+      ],
+      "state": {
+        "phase": "fasting",
+        "phaseStart": "2026-03-28T18:00:00+01:00",
+        "phaseEnd": "2026-03-29T12:00:00+02:00",
+        "currentMealIndex": null,
+        "nextMealIndex": 1,
+        "firstMealIndex": 1,
+        "lastMealIndex": 3,
+        "nextEatingPhaseStart": "2026-03-29T12:00:00+02:00",
+        "nextWindowStart": "2026-03-29T12:00:00+02:00",
+        "remainingSeconds": 34200,
+        "progress": 0.4411764705882353
+      },
+      "formatted": {
+        "countdown": "09:30:00",
+        "duration": "9h 30m",
+        "clockPhaseEnd": "12:00"
+      }
+    },
+    {
+      "name": "berlin-spring-forward-after",
+      "zone": "Europe/Berlin",
+      "plan": {
+        "version": 1,
+        "eating_minutes": 360,
+        "meals": 3,
+        "gap_minutes": 0,
+        "window_start_minutes": 720,
+        "notifications": true,
+        "run_in_tray": false
+      },
+      "now": "2026-03-29T03:30:00+02:00",
+      "slots": [
+        {
+          "index": 1,
+          "start": "2026-03-28T12:00:00+01:00",
+          "end": "2026-03-28T14:00:00+01:00"
+        },
+        {
+          "index": 2,
+          "start": "2026-03-28T14:00:00+01:00",
+          "end": "2026-03-28T16:00:00+01:00"
+        },
+        {
+          "index": 3,
+          "start": "2026-03-28T16:00:00+01:00",
+          "end": "2026-03-28T18:00:00+01:00"
+        },
+        {
+          "index": 1,
+          "start": "2026-03-29T12:00:00+02:00",
+          "end": "2026-03-29T14:00:00+02:00"
+        },
+        {
+          "index": 2,
+          "start": "2026-03-29T14:00:00+02:00",
+          "end": "2026-03-29T16:00:00+02:00"
+        },
+        {
+          "index": 3,
+          "start": "2026-03-29T16:00:00+02:00",
+          "end": "2026-03-29T18:00:00+02:00"
+        },
+        {
+          "index": 1,
+          "start": "2026-03-30T12:00:00+02:00",
+          "end": "2026-03-30T14:00:00+02:00"
+        },
+        {
+          "index": 2,
+          "start": "2026-03-30T14:00:00+02:00",
+          "end": "2026-03-30T16:00:00+02:00"
+        },
+        {
+          "index": 3,
+          "start": "2026-03-30T16:00:00+02:00",
+          "end": "2026-03-30T18:00:00+02:00"
+        }
+      ],
+      "state": {
+        "phase": "fasting",
+        "phaseStart": "2026-03-28T18:00:00+01:00",
+        "phaseEnd": "2026-03-29T12:00:00+02:00",
+        "currentMealIndex": null,
+        "nextMealIndex": 1,
+        "firstMealIndex": 1,
+        "lastMealIndex": 3,
+        "nextEatingPhaseStart": "2026-03-29T12:00:00+02:00",
+        "nextWindowStart": "2026-03-29T12:00:00+02:00",
+        "remainingSeconds": 30600,
+        "progress": 0.5
+      },
+      "formatted": {
+        "countdown": "08:30:00",
+        "duration": "8h 30m",
+        "clockPhaseEnd": "12:00"
+      }
+    },
+    {
+      "name": "berlin-fall-back",
+      "zone": "Europe/Berlin",
+      "plan": {
+        "version": 1,
+        "eating_minutes": 360,
+        "meals": 3,
+        "gap_minutes": 0,
+        "window_start_minutes": 720,
+        "notifications": true,
+        "run_in_tray": false
+      },
+      "now": "2026-10-25T02:30:00+01:00",
+      "slots": [
+        {
+          "index": 1,
+          "start": "2026-10-24T12:00:00+02:00",
+          "end": "2026-10-24T14:00:00+02:00"
+        },
+        {
+          "index": 2,
+          "start": "2026-10-24T14:00:00+02:00",
+          "end": "2026-10-24T16:00:00+02:00"
+        },
+        {
+          "index": 3,
+          "start": "2026-10-24T16:00:00+02:00",
+          "end": "2026-10-24T18:00:00+02:00"
+        },
+        {
+          "index": 1,
+          "start": "2026-10-25T12:00:00+01:00",
+          "end": "2026-10-25T14:00:00+01:00"
+        },
+        {
+          "index": 2,
+          "start": "2026-10-25T14:00:00+01:00",
+          "end": "2026-10-25T16:00:00+01:00"
+        },
+        {
+          "index": 3,
+          "start": "2026-10-25T16:00:00+01:00",
+          "end": "2026-10-25T18:00:00+01:00"
+        },
+        {
+          "index": 1,
+          "start": "2026-10-26T12:00:00+01:00",
+          "end": "2026-10-26T14:00:00+01:00"
+        },
+        {
+          "index": 2,
+          "start": "2026-10-26T14:00:00+01:00",
+          "end": "2026-10-26T16:00:00+01:00"
+        },
+        {
+          "index": 3,
+          "start": "2026-10-26T16:00:00+01:00",
+          "end": "2026-10-26T18:00:00+01:00"
+        }
+      ],
+      "state": {
+        "phase": "fasting",
+        "phaseStart": "2026-10-24T18:00:00+02:00",
+        "phaseEnd": "2026-10-25T12:00:00+01:00",
+        "currentMealIndex": null,
+        "nextMealIndex": 1,
+        "firstMealIndex": 1,
+        "lastMealIndex": 3,
+        "nextEatingPhaseStart": "2026-10-25T12:00:00+01:00",
+        "nextWindowStart": "2026-10-25T12:00:00+01:00",
+        "remainingSeconds": 34200,
+        "progress": 0.5
+      },
+      "formatted": {
+        "countdown": "09:30:00",
+        "duration": "9h 30m",
+        "clockPhaseEnd": "12:00"
+      }
+    },
+    {
+      "name": "berlin-fall-back-meal",
+      "zone": "Europe/Berlin",
+      "plan": {
+        "version": 1,
+        "eating_minutes": 120,
+        "meals": 1,
+        "gap_minutes": 0,
+        "window_start_minutes": 90,
+        "notifications": true,
+        "run_in_tray": false
+      },
+      "now": "2026-10-25T01:45:00+02:00",
+      "slots": [
+        {
+          "index": 1,
+          "start": "2026-10-24T01:30:00+02:00",
+          "end": "2026-10-24T03:30:00+02:00"
+        },
+        {
+          "index": 1,
+          "start": "2026-10-25T01:30:00+02:00",
+          "end": "2026-10-25T02:30:00+01:00"
+        },
+        {
+          "index": 1,
+          "start": "2026-10-26T01:30:00+01:00",
+          "end": "2026-10-26T03:30:00+01:00"
+        }
+      ],
+      "state": {
+        "phase": "eating",
+        "phaseStart": "2026-10-25T01:30:00+02:00",
+        "phaseEnd": "2026-10-25T02:30:00+01:00",
+        "currentMealIndex": 1,
+        "nextMealIndex": 1,
+        "firstMealIndex": 1,
+        "lastMealIndex": 1,
+        "nextEatingPhaseStart": "2026-10-26T01:30:00+01:00",
+        "nextWindowStart": "2026-10-26T01:30:00+01:00",
+        "remainingSeconds": 6300,
+        "progress": 0.125
+      },
+      "formatted": {
+        "countdown": "01:45:00",
+        "duration": "1h 45m",
+        "clockPhaseEnd": "02:30"
+      }
+    },
+    {
+      "name": "new-york-spring-forward",
+      "zone": "America/New_York",
+      "plan": {
+        "version": 1,
+        "eating_minutes": 360,
+        "meals": 3,
+        "gap_minutes": 0,
+        "window_start_minutes": 720,
+        "notifications": true,
+        "run_in_tray": false
+      },
+      "now": "2026-03-08T03:30:00-04:00",
+      "slots": [
+        {
+          "index": 1,
+          "start": "2026-03-07T12:00:00-05:00",
+          "end": "2026-03-07T14:00:00-05:00"
+        },
+        {
+          "index": 2,
+          "start": "2026-03-07T14:00:00-05:00",
+          "end": "2026-03-07T16:00:00-05:00"
+        },
+        {
+          "index": 3,
+          "start": "2026-03-07T16:00:00-05:00",
+          "end": "2026-03-07T18:00:00-05:00"
+        },
+        {
+          "index": 1,
+          "start": "2026-03-08T12:00:00-04:00",
+          "end": "2026-03-08T14:00:00-04:00"
+        },
+        {
+          "index": 2,
+          "start": "2026-03-08T14:00:00-04:00",
+          "end": "2026-03-08T16:00:00-04:00"
+        },
+        {
+          "index": 3,
+          "start": "2026-03-08T16:00:00-04:00",
+          "end": "2026-03-08T18:00:00-04:00"
+        },
+        {
+          "index": 1,
+          "start": "2026-03-09T12:00:00-04:00",
+          "end": "2026-03-09T14:00:00-04:00"
+        },
+        {
+          "index": 2,
+          "start": "2026-03-09T14:00:00-04:00",
+          "end": "2026-03-09T16:00:00-04:00"
+        },
+        {
+          "index": 3,
+          "start": "2026-03-09T16:00:00-04:00",
+          "end": "2026-03-09T18:00:00-04:00"
+        }
+      ],
+      "state": {
+        "phase": "fasting",
+        "phaseStart": "2026-03-07T18:00:00-05:00",
+        "phaseEnd": "2026-03-08T12:00:00-04:00",
+        "currentMealIndex": null,
+        "nextMealIndex": 1,
+        "firstMealIndex": 1,
+        "lastMealIndex": 3,
+        "nextEatingPhaseStart": "2026-03-08T12:00:00-04:00",
+        "nextWindowStart": "2026-03-08T12:00:00-04:00",
+        "remainingSeconds": 30600,
+        "progress": 0.5
+      },
+      "formatted": {
+        "countdown": "08:30:00",
+        "duration": "8h 30m",
+        "clockPhaseEnd": "12:00"
+      }
+    },
+    {
+      "name": "new-york-spring-forward-meal",
+      "zone": "America/New_York",
+      "plan": {
+        "version": 1,
+        "eating_minutes": 120,
+        "meals": 1,
+        "gap_minutes": 0,
+        "window_start_minutes": 90,
+        "notifications": true,
+        "run_in_tray": false
+      },
+      "now": "2026-03-08T03:30:00-04:00",
+      "slots": [
+        {
+          "index": 1,
+          "start": "2026-03-07T01:30:00-05:00",
+          "end": "2026-03-07T03:30:00-05:00"
+        },
+        {
+          "index": 1,
+          "start": "2026-03-08T01:30:00-05:00",
+          "end": "2026-03-08T04:30:00-04:00"
+        },
+        {
+          "index": 1,
+          "start": "2026-03-09T01:30:00-04:00",
+          "end": "2026-03-09T03:30:00-04:00"
+        }
+      ],
+      "state": {
+        "phase": "eating",
+        "phaseStart": "2026-03-08T01:30:00-05:00",
+        "phaseEnd": "2026-03-08T04:30:00-04:00",
+        "currentMealIndex": 1,
+        "nextMealIndex": 1,
+        "firstMealIndex": 1,
+        "lastMealIndex": 1,
+        "nextEatingPhaseStart": "2026-03-09T01:30:00-04:00",
+        "nextWindowStart": "2026-03-09T01:30:00-04:00",
+        "remainingSeconds": 3600,
+        "progress": 0.5
+      },
+      "formatted": {
+        "countdown": "01:00:00",
+        "duration": "1h",
+        "clockPhaseEnd": "04:30"
+      }
+    },
+    {
+      "name": "new-york-fall-back",
+      "zone": "America/New_York",
+      "plan": {
+        "version": 1,
+        "eating_minutes": 360,
+        "meals": 3,
+        "gap_minutes": 0,
+        "window_start_minutes": 720,
+        "notifications": true,
+        "run_in_tray": false
+      },
+      "now": "2026-11-01T01:30:00-04:00",
+      "slots": [
+        {
+          "index": 1,
+          "start": "2026-10-31T12:00:00-04:00",
+          "end": "2026-10-31T14:00:00-04:00"
+        },
+        {
+          "index": 2,
+          "start": "2026-10-31T14:00:00-04:00",
+          "end": "2026-10-31T16:00:00-04:00"
+        },
+        {
+          "index": 3,
+          "start": "2026-10-31T16:00:00-04:00",
+          "end": "2026-10-31T18:00:00-04:00"
+        },
+        {
+          "index": 1,
+          "start": "2026-11-01T12:00:00-05:00",
+          "end": "2026-11-01T14:00:00-05:00"
+        },
+        {
+          "index": 2,
+          "start": "2026-11-01T14:00:00-05:00",
+          "end": "2026-11-01T16:00:00-05:00"
+        },
+        {
+          "index": 3,
+          "start": "2026-11-01T16:00:00-05:00",
+          "end": "2026-11-01T18:00:00-05:00"
+        },
+        {
+          "index": 1,
+          "start": "2026-11-02T12:00:00-05:00",
+          "end": "2026-11-02T14:00:00-05:00"
+        },
+        {
+          "index": 2,
+          "start": "2026-11-02T14:00:00-05:00",
+          "end": "2026-11-02T16:00:00-05:00"
+        },
+        {
+          "index": 3,
+          "start": "2026-11-02T16:00:00-05:00",
+          "end": "2026-11-02T18:00:00-05:00"
+        }
+      ],
+      "state": {
+        "phase": "fasting",
+        "phaseStart": "2026-10-31T18:00:00-04:00",
+        "phaseEnd": "2026-11-01T12:00:00-05:00",
+        "currentMealIndex": null,
+        "nextMealIndex": 1,
+        "firstMealIndex": 1,
+        "lastMealIndex": 3,
+        "nextEatingPhaseStart": "2026-11-01T12:00:00-05:00",
+        "nextWindowStart": "2026-11-01T12:00:00-05:00",
+        "remainingSeconds": 41400,
+        "progress": 0.39473684210526316
+      },
+      "formatted": {
+        "countdown": "11:30:00",
+        "duration": "11h 30m",
+        "clockPhaseEnd": "12:00"
+      }
+    }
+  ]
+}

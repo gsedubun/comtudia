@@ -135,20 +135,24 @@ as the desktop app, so a plan can be moved between them.
 - `android/` — Kotlin + Compose app (`com.comtudia.app`) with the same
   dashboard, settings, notifications and exact-alarm scheduling. The phone app
   also feeds the band: Mi Fitness mirrors its ongoing countdown card.
+- `android/wear/` — Wear OS app for Galaxy Watch 4/5/6/7 and Watch FE. It
+  renders the plan the phone pushes over the Wearable Data Layer, so the phone
+  stays the source of truth.
 - `band/` — a standalone Vela JS Quick App for the band, sideloaded with
   `tools/deploy-rpk.sh`. On the reference global Band 9 Pro it installs and is
   listed, but launching it reboots the band, so the phone notification path is
   the supported experience.
 
-See [docs/android.md](docs/android.md) and [docs/band.md](docs/band.md) for
-building, installing, permissions, and the caveats of the unsupported band
-sideload path.
+See [docs/android.md](docs/android.md), [docs/wear.md](docs/wear.md) and
+[docs/band.md](docs/band.md) for building, installing, permissions, and the
+caveats of the unsupported band sideload path.
 
 ![comtudia on Android](docs/android-dashboard.png)
 
 ```bash
 tools/android-env.sh                  # JDK 17 + Android SDK + Gradle, no sudo
-make android-build                    # debug APK
+make android-build                    # debug phone APK
+make wear-build                       # debug Wear OS APK
 make android-test                     # JVM tests incl. Go parity vectors
 tools/band-build.sh                   # RPK (needs Node or AIoT-IDE)
 ```

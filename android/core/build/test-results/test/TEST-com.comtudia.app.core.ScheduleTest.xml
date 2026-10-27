@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.comtudia.app.core.ScheduleTest" tests="15" skipped="0" failures="0" errors="0" timestamp="2026-10-27T07:36:38" hostname="del-pc" time="0.015">
+  <properties/>
+  <testcase name="computeAcrossFallBack" classname="com.comtudia.app.core.ScheduleTest" time="0.006"/>
+  <testcase name="slotsAcrossFallBackInBerlin" classname="com.comtudia.app.core.ScheduleTest" time="0.0"/>
+  <testcase name="slotsAcrossSpringForwardInBerlin" classname="com.comtudia.app.core.ScheduleTest" time="0.0"/>
+  <testcase name="computeWithGaps" classname="com.comtudia.app.core.ScheduleTest" time="0.001"/>
+  <testcase name="slotsForDateNormalizesWindowIntoFollowingDays" classname="com.comtudia.app.core.ScheduleTest" time="0.0"/>
+  <testcase name="computeContiguousPlan" classname="com.comtudia.app.core.ScheduleTest" time="0.001"/>
+  <testcase name="slotsWithGapAcrossSpringForward" classname="com.comtudia.app.core.ScheduleTest" time="0.002"/>
+  <testcase name="slotsForDateEmptyWithoutMeals" classname="com.comtudia.app.core.ScheduleTest" time="0.001"/>
+  <testcase name="computeWindowCrossingMidnight" classname="com.comtudia.app.core.ScheduleTest" time="0.0"/>
+  <testcase name="slotsAcrossSpringForwardInNewYork" classname="com.comtudia.app.core.ScheduleTest" time="0.0"/>
+  <testcase name="computeAcrossSpringForward" classname="com.comtudia.app.core.ScheduleTest" time="0.0"/>
+  <testcase name="currentMealIsNullWhileFasting" classname="com.comtudia.app.core.ScheduleTest" time="0.001"/>
+  <testcase name="computeScansAcrossYearBoundary" classname="com.comtudia.app.core.ScheduleTest" time="0.0"/>
+  <testcase name="computeRejectsInvalidPlan" classname="com.comtudia.app.core.ScheduleTest" time="0.0"/>
+  <testcase name="slotsAcrossFallBackInNewYork" classname="com.comtudia.app.core.ScheduleTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

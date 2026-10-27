@@ -22,3 +22,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "comtudia"
 include(":app")
+include(":core")
+include(":wear")
